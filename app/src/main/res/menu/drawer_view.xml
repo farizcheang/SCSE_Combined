@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <group android:checkableBehavior="single"
+        android:layout_width="wrap_content">
+        <item
+            android:id="@+id/nav_camera"
+
+            android:title="@string/news_updates" />
+        <item
+            android:id="@+id/nav_gallery"
+
+            android:title="@string/score" />
+        <item
+            android:id="@+id/nav_slideshow"
+
+            android:title="@string/account" />
+        <item
+            android:id="@+id/nav_manage"
+
+            android:title="@string/logout" />
+    </group>
+</menu>
