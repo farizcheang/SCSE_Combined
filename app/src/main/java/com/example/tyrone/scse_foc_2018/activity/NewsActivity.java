@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -76,7 +77,7 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void initDrawer() {
-       /* mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -87,11 +88,11 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
                     }
                 }
-        );*/
+        );
     }
 
     public void initToolBar() {
-        /*toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.titlebar_news);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.ic_menu_white);
@@ -102,7 +103,7 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
                         mDrawerLayout.openDrawer(Gravity.START);
                     }
                 }
-        );*/
+        );
     }
 
     @Override
@@ -114,17 +115,17 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
         Log.i("asd", "coming into broadcastmessage");
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        EditText editText = (EditText) findViewById(R.id.BroadcastMessageInput);
+        //EditText editText = (EditText) findViewById(R.id.BroadcastMessageInput);
 
-        String message = editText.getText().toString();
+        //String message = editText.getText().toString();
         String author = "tyrone";
         String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        itemAdapter.AddBroadcastMessage(message, author, date);
+        //itemAdapter.AddBroadcastMessage(message, author, date);
 
         CurrentMessageIndex++;
         //add the message to the data storage along with the message index
-        editor.putString(KeyMessage + CurrentMessageIndex, author + ":" + date + ":" + message);
-        editor.putInt(KeyCurrentMessageIndex, CurrentMessageIndex);
+        //editor.putString(KeyMessage + CurrentMessageIndex, author + ":" + date + ":" + message);
+        //editor.putInt(KeyCurrentMessageIndex, CurrentMessageIndex);
 
 
         Log.i("asd", "putting key is = " + KeyMessage + CurrentMessageIndex);
@@ -149,7 +150,7 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
 
         Log.i("asd", "getting key is = " + KeyMessage + CurrentMessageIndex);
 
-        TextView preview = (TextView) findViewById(R.id.message1);
+        //TextView preview = (TextView) findViewById(R.id.message1);
         //preview.setText(CurrentMessageIndex);
     }
     public void Reset(View view)
