@@ -3,6 +3,10 @@ package com.example.tyrone.scse_foc_2018.entity;
 public class News {
     private String title, author, datetime, content;
 
+    public News() {
+
+    }
+
     public News(String inTitle, String inAuthor, String inDateline, String inContext)
     {
         title = inTitle;

@@ -48,7 +48,7 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
-        initToolBar();
+        /*initToolBar();
         initDrawer();
 
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
@@ -73,7 +73,7 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
                 itemAdapter.AddBroadcastMessage(message, author, date);
             }
         }
-        myListView.setAdapter(itemAdapter);
+        myListView.setAdapter(itemAdapter);*/
     }
 
     public void initDrawer() {

@@ -154,7 +154,7 @@ public class LoginActivity extends BaseAuthActivity {
                                 Log.d((getString(R.string.REGISTERED_TAG)), "login:success");
                                 if (mAuth.getCurrentUser() != null) {
                                     hideProgressDialog();
-                                    Intent intent = new Intent(LoginActivity.this, NewsActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }
