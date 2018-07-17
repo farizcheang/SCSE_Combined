@@ -21,15 +21,16 @@ import java.util.ArrayList;
 public class NewsFragment extends Fragment {
 
     ListView listView;
-    final NewsController newsController = new NewsController();
-    final ArrayList<News> newsArrayList = new ArrayList<News>();
 
+    public final NewsController newsController = new NewsController();
+    private ArrayList<News> newsArrayList = new ArrayList<News>();
+    NewsAdapter newsAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
 
     }
 
@@ -38,16 +39,37 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_news,container,false);
+        listView = (ListView) view.findViewById(R.id.frag_list);
+
+
+
+
+
+        //Log.i("onGetDataSuccessNull", String.valueOf(this.listView.getAdapter().getCount()));
+
+
+
         newsController.retrieveNews(this);
+
+        newsAdapter = new NewsAdapter(getActivity(),newsArrayList);
+        listView.setAdapter(newsAdapter);
+
+        Log.i("onGetView", String.valueOf(this.newsArrayList.size()));
         return view;
     }
 
 
     public void onGetDataSuccess (DataSnapshot data) {
+
         for ( DataSnapshot news :  data.getChildren() ) {
+            //News news = new News();
             newsArrayList.add(news.getValue(News.class));
+
         }
-        listView.setAdapter(NewsAdapter);
+
+        Log.i("onGetDataSuccessChange", String.valueOf(this.listView.getAdapter().getCount()));
+        newsAdapter.notifyDataSetChanged();
+
 
     }
 

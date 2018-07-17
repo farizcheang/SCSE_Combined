@@ -1,9 +1,12 @@
 package com.example.tyrone.scse_foc_2018.controller;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
+import com.example.tyrone.scse_foc_2018.R;
 import com.example.tyrone.scse_foc_2018.fragment.NewsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,7 +22,10 @@ public class NewsController {
     private DatabaseReference database;
 
     private final String TAG = "NEWS_CONTROLLER";
+
     public NewsController () {}
+
+
 
     //  Retrieve News
     public void retrieveNews(final Fragment fragment) {
@@ -32,12 +38,13 @@ public class NewsController {
         if ( user != null ) {
             database = FirebaseDatabase.getInstance().getReference("news");
             database.addListenerForSingleValueEvent(new ValueEventListener() {
+
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                     if (fragment instanceof NewsFragment)
                         ((NewsFragment)fragment).onGetDataSuccess(dataSnapshot);
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 

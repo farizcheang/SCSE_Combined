@@ -1,11 +1,14 @@
 package com.example.tyrone.scse_foc_2018.activity;
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import com.example.tyrone.scse_foc_2018.R;
+import com.example.tyrone.scse_foc_2018.controller.NewsController;
 import com.example.tyrone.scse_foc_2018.fragment.NewsFragment;
 
 import android.widget.Button;
@@ -27,6 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public DrawerLayout mDrawerLayout;
     public Toolbar toolbar;
     private FragmentManager fragmentManager;
+    private NewsController newsController;
+    @VisibleForTesting
+    public ProgressDialog mProgressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //  Check if it is null
         if ( savedInstanceState == null ) {
             NewsFragment newsFragment = new NewsFragment();
+
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.add(R.id.fl_contents,newsFragment).commit();
         }
