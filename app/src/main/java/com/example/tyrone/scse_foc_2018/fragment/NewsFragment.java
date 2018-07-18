@@ -26,10 +26,11 @@ public class NewsFragment extends Fragment {
     private ArrayList<News> newsArrayList = new ArrayList<News>();
     NewsAdapter newsAdapter;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-
+        newsArrayList.clear();
+        newsController.retrieveNews(this);
         super.onCreate(savedInstanceState);
 
     }
@@ -41,17 +42,9 @@ public class NewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_news,container,false);
         listView = (ListView) view.findViewById(R.id.frag_list);
 
-
-
-
-
+        newsAdapter = new NewsAdapter(getActivity(),newsArrayList);
         //Log.i("onGetDataSuccessNull", String.valueOf(this.listView.getAdapter().getCount()));
 
-
-
-        newsController.retrieveNews(this);
-
-        newsAdapter = new NewsAdapter(getActivity(),newsArrayList);
         listView.setAdapter(newsAdapter);
 
         Log.i("onGetView", String.valueOf(this.newsArrayList.size()));

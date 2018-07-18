@@ -40,7 +40,7 @@ import java.util.Date;
 
 public class AccountFragment extends Fragment {
 
-    /*private ImageView iv_userProfilePic;
+    private ImageView iv_userProfilePic;
     private TextView tv_userName;
     private TextView tv_userMobileNo;
     private TextView tv_userEmail;
@@ -105,13 +105,13 @@ public class AccountFragment extends Fragment {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.fl_contents, fragment);
                 ft.commit();*/
-            /*}
+            }
         });
 
         return v;
     }
 
-    @Override
+    /*@Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
