@@ -35,8 +35,8 @@ public class ItemAdapter extends BaseAdapter {
     }
     public void AddBroadcastMessage(String message, String author, String date)
     {
-        News news = new News("title", author, date, message);
-        BroadcastedNews.add(0,news);
+        //News news = new News("title", author, date, message);
+        //BroadcastedNews.add(0,news);
     }
     public void clear()
     {
@@ -57,11 +57,11 @@ public class ItemAdapter extends BaseAdapter {
 
         String message = BroadcastedNews.get(i).getContent();
         String author = BroadcastedNews.get(i).getAuthor();
-        String date = BroadcastedNews.get(i).getDatetime();
+        //String date = BroadcastedNews.get(i).getDatetime();
 
         messageTextView.setText(message);
         authorTextView.setText(author);
-        dateTextView.setText(date);
+        //dateTextView.setText(date);
 
         return v;
     }

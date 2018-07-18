@@ -1,6 +1,20 @@
 package com.example.tyrone.scse_foc_2018.activity;
+import android.app.ProgressDialog;
+import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import com.example.tyrone.scse_foc_2018.R;
+import com.example.tyrone.scse_foc_2018.controller.MemberController;
+import com.example.tyrone.scse_foc_2018.controller.NewsController;
+import com.example.tyrone.scse_foc_2018.fragment.AccountFragment;
+import com.example.tyrone.scse_foc_2018.fragment.NewsFragment;
+
 import android.widget.Button;
 
 import android.app.FragmentManager;
@@ -17,19 +31,87 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public DrawerLayout mDrawerLayout;
+    public Toolbar toolbar;
+
+    //  Controller
+    private FragmentManager fragmentManager;
+    private NewsController newsController;
+    private MemberController memberController;
+
+    //  Fragment
+    private NewsFragment newsFragment;
+    private AccountFragment accountFragment;
+
+    @VisibleForTesting
+    public ProgressDialog mProgressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
 
-       /* mDrawer = findViewById(R.id.drawerlayout);
-        mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
+        newsFragment = new NewsFragment();
+        accountFragment = new AccountFragment();
 
-        setupToolbar();
-        setupMenu();*/
+        initToolBar();
+        initDrawer();
 
+        //  Check if it is null
+        if ( savedInstanceState == null ) {
 
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.add(R.id.fl_contents,newsFragment).commit();
+        }
+
+    }
+
+    public void initDrawer() {
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        item.setChecked(true);
+                        mDrawerLayout.closeDrawers();
+                        String SelectItem = item.toString();
+                        switch (SelectItem) {
+                            case "Account" :
+                                ft.replace(R.id.fl_contents,accountFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
+                            case "News/Updates" :
+                                ft.replace(R.id.fl_contents,newsFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
+
+                        }
+                        Log.i("MenuItem",item.toString());
+                        return true;
+                    }
+                }
+        );
+    }
+
+    public void initToolBar() {
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.titlebar_news);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.ic_menu_white);
+        toolbar.setNavigationOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        //Toast.makeText(LoginActivity.this,"clicking Toolbar");
+                        mDrawerLayout.openDrawer(Gravity.START);
+                    }
+                }
+        );
     }
 
     @Override
