@@ -24,7 +24,7 @@ public class MemberController {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private DatabaseReference database;
-    private Member member;
+    public Member currentMember;
 
     private boolean result;
 
@@ -48,7 +48,7 @@ public class MemberController {
         return result;
     }
 
-    public void retrieveMemberRecord(final Fragment fragment) {
+    public void retrieveMemberRecord() {
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -58,8 +58,8 @@ public class MemberController {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     //if(fragment instanceof AccountFragment)
-                        //((AccountFragment) fragment).onGetDataSuccess(dataSnapshot);
-
+                    //    currentMember = ((AccountFragment) fragment).onGetDataSuccess(dataSnapshot);
+                    currentMember = dataSnapshot.getValue(Member.class);
                 }
 
                 @Override

@@ -80,7 +80,7 @@ public class AccountFragment extends Fragment {
 
         registerForContextMenu(btn_camera); //display menu: open camera, open gallery.
 
-        memberController.retrieveMemberRecord(this);
+        memberController.retrieveMemberRecord();
 
         btn_camera.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -217,7 +217,7 @@ public class AccountFragment extends Fragment {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
 
 
@@ -225,7 +225,7 @@ public class AccountFragment extends Fragment {
 
         member = data.getValue(Member.class);
 
-        if(member != null){
+        /*if(member != null){
             tv_userName.setText(member.getName());
             tv_userMobileNo.setText(Integer.toString(member.getMobileNo()).substring(0,4) + " " + Integer.toString(member.getMobileNo()).substring(4));
             tv_userEmail.setText(member.getEmail());
@@ -271,10 +271,10 @@ public class AccountFragment extends Fragment {
             Log.d(TAG, "retrieveMemberRecord:success");
         }else{
             Log.d(TAG, "retrieveMemberRecord:failure");
-        }
+        }*/
     }
 
-    @Override
+    /*@Override
     public void onGetDataFailed(DatabaseError databaseError) {
         Log.e("AccountFragment:DBError", databaseError.toString());
     }*/
