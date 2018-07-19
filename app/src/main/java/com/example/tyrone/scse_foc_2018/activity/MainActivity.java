@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scoreFragment = new ViewScoreFragment();
         updateScoreFragment = new UpdateScoreFragment();
         accountFragment = new AccountFragment();
+        memberController = new MemberController();
+
+        memberController.retrieveMemberRecord();
 
         initToolBar();
         initDrawer();
@@ -146,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onClick(View v) {
                         //Toast.makeText(LoginActivity.this,"clicking Toolbar");
                         mDrawerLayout.openDrawer(Gravity.START);
+                        Log.i("Group Name:",memberController.currentMember.getGroup());
                     }
                 }
         );

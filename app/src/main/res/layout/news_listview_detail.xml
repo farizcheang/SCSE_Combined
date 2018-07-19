@@ -29,10 +29,17 @@
         android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginEnd="48dp"
         android:text="Date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/authorTextView" />
+=======
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/authorTextView"
+        android:layout_marginEnd="45dp"
+        android:text="Date" />
+>>>>>>> 6f0d231df1136a06d90d68d43ae991eb6d2edd07
 
     <TextView
         android:id="@+id/messageTextView"
