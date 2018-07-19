@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "540449158787-0sr0jrhjdvdjlpuvti325p76qel60lmp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.tyrone.scse_foc_2018",
-            "certificate_hash": "2b7f66fea1491d816eb3fbf620f687ad08c15c27"
-          }
-        },
-        {
           "client_id": "540449158787-for2qdjq9fk33eijotr4he2fjnn2e086.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -31,8 +23,20 @@
           }
         },
         {
-          "client_id": "540449158787-77hiabs5t74p7ffnsfg1ene3dt27qm7j.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "540449158787-0sr0jrhjdvdjlpuvti325p76qel60lmp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tyrone.scse_foc_2018",
+            "certificate_hash": "2b7f66fea1491d816eb3fbf620f687ad08c15c27"
+          }
+        },
+        {
+          "client_id": "540449158787-4ahj7oupci0s9bmjh8gd7c9o7vlmri2a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tyrone.scse_foc_2018",
+            "certificate_hash": "c6a8bf5ab07bc6a39fd42e6044e625fe0ffdef74"
+          }
         },
         {
           "client_id": "540449158787-77hiabs5t74p7ffnsfg1ene3dt27qm7j.apps.googleusercontent.com",

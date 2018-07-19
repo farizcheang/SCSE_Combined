@@ -1,19 +1,15 @@
 <resources>
-    <string name="app_name">EzBiz</string>
+    <string name="app_name">SCSE FOC</string>
 
     <!-- Menu Strings -->
-    <string name="map">Map</string>
-    <string name="analyse">Analyse</string>
-    <string name="new_listing">New Listing</string>
-    <string name="my_listings">My Listings</string>
-    <string name="bookmarks">Bookmarks</string>
-    <string name="chats">Chats</string>
-    <string name="account">Account</string>
-    <string name="settings">Settings</string>
-    <string name="about">About</string>
-    <string name="logout">Logout</string>
-    <string name="news_updates">News/Updates</string>
-    <string name="score">Score</string>
+    <string name="Updates">Updates</string>
+    <string name="Add_Updates">Add Updates</string>
+    <string name="View_Score">Analyse</string>
+    <string name="Add_Score">New Listing</string>
+    <string name="Account">Account</string>
+    <string name="Chat">Chats</string>
+    <string name="TrReport">Tr Report</string>
+    <string name="Logout">Logout</string>
 
     <!-- Button Strings -->
     <string name="navigate">Navigate</string>
@@ -82,7 +78,6 @@
     <string name="error_incorrect_old_password">Your old password was entered incorrectly. Unable to perform change of password.</string>
 
 
-
     <!-- Action TAGs -->
     <string name="LOGIN_TAG">LOGIN_TAG</string>
     <string name="REGISTER_TAG">REGISTER_TAG</string>
@@ -95,5 +90,14 @@
     <string name="title_activity_detailed_listing">detailedListing</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_my_listing">MyListing</string>
+
+    <string-array name="OGs">
+        <item>apus</item>
+        <item>corvus</item>
+        <item>leo</item>
+        <item>lyra</item>
+        <item>orion</item>
+        <item>scorpius</item>
+    </string-array>
 
 </resources>

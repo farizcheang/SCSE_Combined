@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Use DrawerLayout as root container for activity -->
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/toolbar" />
+
+    </FrameLayout>
+
+
+
+    <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/drawer_view"
+        app:headerLayout="@layout/nav_header" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.ViewGroupScoreActivity">
+
+        <TextView
+            android:id="@+id/LeoTextView"
+            android:layout_width="130dp"
+            android:layout_height="68dp"
+            android:layout_alignBottom="@+id/LeoImageView"
+            android:layout_alignStart="@+id/CorvusTextView"
+            android:text="TextView"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/LyraTextView"
+            android:layout_width="130dp"
+            android:layout_height="68dp"
+            android:layout_alignBottom="@+id/LyraImageView"
+            android:layout_alignStart="@+id/CorvusTextView"
+            android:text="TextView"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/OrionTextView"
+            android:layout_width="130dp"
+            android:layout_height="68dp"
+            android:layout_alignBottom="@+id/OrionImageView"
+            android:layout_alignStart="@+id/CorvusTextView"
+            android:text="TextView"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/ScorpiusTextView"
+            android:layout_width="130dp"
+            android:layout_height="68dp"
+            android:layout_alignBottom="@+id/ScorpiusImageView"
+            android:layout_alignStart="@+id/CorvusTextView"
+            android:text="TextView"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/ApusTextView"
+            android:layout_width="130dp"
+            android:layout_height="68dp"
+            android:layout_above="@+id/CorvusImageView"
+            android:layout_alignStart="@+id/LeoTextView"
+            android:text="TextView"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/CorvusTextView"
+            android:layout_width="130dp"
+            android:layout_height="68dp"
+            android:layout_alignBottom="@+id/CorvusImageView"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="12dp"
+            android:text="TextView"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/CorvusImageView"
+            android:layout_width="181dp"
+            android:layout_height="80dp"
+            android:layout_above="@+id/LeoImageView"
+            android:layout_alignParentStart="true"
+            app:srcCompat="@mipmap/og_corvus_small" />
+
+        <ImageView
+            android:id="@+id/LeoImageView"
+            android:layout_width="181dp"
+            android:layout_height="80dp"
+            android:layout_above="@+id/LyraImageView"
+            android:layout_alignParentStart="true"
+            app:srcCompat="@mipmap/og_leo_small" />
+
+        <ImageView
+            android:id="@+id/LyraImageView"
+            android:layout_width="181dp"
+            android:layout_height="80dp"
+            android:layout_above="@+id/OrionImageView"
+            android:layout_alignParentStart="true"
+            app:srcCompat="@mipmap/og_lyra_small" />
+
+        <ImageView
+            android:id="@+id/ScorpiusImageView"
+            android:layout_width="181dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            app:srcCompat="@mipmap/og_scorpius_small" />
+
+        <ImageView
+            android:id="@+id/OrionImageView"
+            android:layout_width="181dp"
+            android:layout_height="80dp"
+            android:layout_above="@+id/ScorpiusImageView"
+            android:layout_alignParentStart="true"
+            app:srcCompat="@mipmap/og_orion_small" />
+
+        <ImageView
+            android:id="@+id/ApusImageView"
+            android:layout_width="183dp"
+            android:layout_height="82dp"
+            android:layout_above="@+id/CorvusImageView"
+            android:layout_alignParentStart="true"
+            app:srcCompat="@mipmap/og_apus_small" />
+
+    </RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

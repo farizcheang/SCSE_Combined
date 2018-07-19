@@ -5,20 +5,36 @@
     <group android:checkableBehavior="single"
         android:layout_width="wrap_content">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/Updates"
 
-            android:title="@string/news_updates" />
+            android:title="Updates" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/Add_Updates"
 
-            android:title="@string/score" />
+            android:title="Add News" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/View_Score"
 
-            android:title="@string/account" />
+            android:title="Score" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/Add_Score"
 
-            android:title="@string/logout" />
+            android:title="Add Score for Prog" />
+        <item
+            android:id="@+id/Account"
+
+            android:title="Account" />
+        <item
+            android:id="@+id/TrReport"
+
+            android:title="TR report" />
+        <item
+            android:id="@+id/Chat"
+
+            android:title="Chat" />
+        <item
+            android:id="@+id/Logout"
+
+            android:title="Logout" />
     </group>
 </menu>

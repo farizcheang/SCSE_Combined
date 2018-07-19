@@ -17,6 +17,9 @@ import com.example.tyrone.scse_foc_2018.entity.News;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import android.os.Handler;
 
 public class NewsFragment extends Fragment {
 
@@ -27,12 +30,25 @@ public class NewsFragment extends Fragment {
     NewsAdapter newsAdapter;
 
 
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            /* do what you need to do */
+            RetrieveNews();
+            /* and here comes the "trick" */
+            handler.postDelayed(this, 1000);
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         newsArrayList.clear();
         newsController.retrieveNews(this);
         super.onCreate(savedInstanceState);
 
+
+        handler.postDelayed(runnable, 1000);
     }
 
     @Override
@@ -54,9 +70,11 @@ public class NewsFragment extends Fragment {
 
     public void onGetDataSuccess (DataSnapshot data) {
 
+        newsArrayList.clear();
         for ( DataSnapshot news :  data.getChildren() ) {
             //News news = new News();
-            newsArrayList.add(news.getValue(News.class));
+
+            newsArrayList.add(0, news.getValue(News.class));
 
         }
 
@@ -64,6 +82,10 @@ public class NewsFragment extends Fragment {
         newsAdapter.notifyDataSetChanged();
 
 
+    }
+    void RetrieveNews()
+    {
+        newsController.retrieveNews(this);
     }
 
     /*@Override

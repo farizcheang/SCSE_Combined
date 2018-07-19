@@ -120,7 +120,7 @@
                 android:paddingBottom="5dp"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingTop="7dp"
-                android:text="@string/account"
+                android:text="account"
                 android:textColor="@color/color_primary"
                 android:textStyle="bold" />
 

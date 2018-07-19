@@ -14,6 +14,9 @@ import com.example.tyrone.scse_foc_2018.controller.MemberController;
 import com.example.tyrone.scse_foc_2018.controller.NewsController;
 import com.example.tyrone.scse_foc_2018.fragment.AccountFragment;
 import com.example.tyrone.scse_foc_2018.fragment.NewsFragment;
+import com.example.tyrone.scse_foc_2018.fragment.UpdateNewsFragment;
+import com.example.tyrone.scse_foc_2018.fragment.UpdateScoreFragment;
+import com.example.tyrone.scse_foc_2018.fragment.ViewScoreFragment;
 
 import android.widget.Button;
 
@@ -41,6 +44,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //  Fragment
     private NewsFragment newsFragment;
+    private UpdateNewsFragment updateNewsFragment;
+
+    private ViewScoreFragment scoreFragment;
+    private UpdateScoreFragment updateScoreFragment;
+
     private AccountFragment accountFragment;
 
     @VisibleForTesting
@@ -53,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         newsFragment = new NewsFragment();
+        updateNewsFragment = new UpdateNewsFragment();
+        scoreFragment = new ViewScoreFragment();
+        updateScoreFragment = new UpdateScoreFragment();
         accountFragment = new AccountFragment();
 
         initToolBar();
@@ -80,17 +91,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mDrawerLayout.closeDrawers();
                         String SelectItem = item.toString();
                         switch (SelectItem) {
+                            case "Updates" :
+                                ft.replace(R.id.fl_contents,newsFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
+                            case "Add News" :
+                                ft.replace(R.id.fl_contents,updateNewsFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
+                            case "Score" :
+                                ft.replace(R.id.fl_contents,scoreFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
+                            case "Add Score for Prog" :
+                                ft.replace(R.id.fl_contents,updateScoreFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
                             case "Account" :
                                 ft.replace(R.id.fl_contents,accountFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
-                            case "News/Updates" :
-                                ft.replace(R.id.fl_contents,newsFragment);
-                                ft.addToBackStack(null);
-                                ft.commit();
-                                break;
 
+
+                                /*
+                                <string name="Updates">Updates</string>
+    <string name="Add_Updates">Add Updates</string>
+    <string name="View_Score">Analyse</string>
+    <string name="Add_Score">New Listing</string>
+    <string name="Account">Account</string>
+    <string name="Chat">Chats</string>
+    <string name="TrReport">Tr Report</string>
+    <string name="Logout">Logout</string>
+                                 */
                         }
                         Log.i("MenuItem",item.toString());
                         return true;
