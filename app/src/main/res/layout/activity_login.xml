@@ -16,7 +16,7 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        app:srcCompat="@mipmap/og_scse_top_ay1819" />
+        android:src="@mipmap/og_scse_top_ay1819" />
 
     <EditText
         android:id="@+id/etEmail"
@@ -44,7 +44,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="@color/white"
+        android:background="#f8f8f8"
         android:layout_gravity="center"
         android:text="Login"
         android:textColor="#140423"
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@color/white"
+        android:background="#f8f8f8"
         android:text="Register"
         android:textColor="#140423"
         android:textSize="20dp" />
