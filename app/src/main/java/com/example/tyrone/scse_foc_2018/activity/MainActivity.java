@@ -13,6 +13,7 @@ import com.example.tyrone.scse_foc_2018.R;
 import com.example.tyrone.scse_foc_2018.controller.MemberController;
 import com.example.tyrone.scse_foc_2018.controller.NewsController;
 import com.example.tyrone.scse_foc_2018.fragment.AccountFragment;
+import com.example.tyrone.scse_foc_2018.fragment.CreateAccidentReportFragment;
 import com.example.tyrone.scse_foc_2018.fragment.NewsFragment;
 import com.example.tyrone.scse_foc_2018.fragment.TrReportFragment;
 import com.example.tyrone.scse_foc_2018.fragment.UpdateNewsFragment;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private UpdateScoreFragment updateScoreFragment;
 
     private TrReportFragment trReportFragment;
+    private CreateAccidentReportFragment createAccidentReportFragment;
+
     private AccountFragment accountFragment;
 
     @VisibleForTesting
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scoreFragment = new ViewScoreFragment();
         updateScoreFragment = new UpdateScoreFragment();
         trReportFragment = new TrReportFragment();
+        createAccidentReportFragment = new CreateAccidentReportFragment();
         accountFragment = new AccountFragment();
         memberController = new MemberController();
 
@@ -119,6 +123,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 break;
                             case "TR report" :
                                 ft.replace(R.id.fl_contents,trReportFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
+                            case "Accident report" :
+                                ft.replace(R.id.fl_contents,createAccidentReportFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;

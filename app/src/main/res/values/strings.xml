@@ -9,6 +9,7 @@
     <string name="Account">Account</string>
     <string name="Chat">Chats</string>
     <string name="TrReport">Tr Report</string>
+    <string name="AccidentReport">Accident Report</string>
     <string name="Logout">Logout</string>
 
     <!-- Button Strings -->
@@ -117,6 +118,15 @@
         <item>12:00 - 14:00</item>
         <item>14:00 - 16:00</item>
         <item>16:00 - 18:00</item>
+    </string-array>
+
+    <string-array name="accidentTypes">
+        <item>Select Accident</item>
+        <item>Sprain</item>
+        <item>Cut</item>
+        <item>Period</item>
+        <item>Death</item>
+        <item>Others</item>
     </string-array>
 
 </resources>

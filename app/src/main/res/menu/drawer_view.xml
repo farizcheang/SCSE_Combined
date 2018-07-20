@@ -29,6 +29,10 @@
 
             android:title="TR report" />
         <item
+            android:id="@+id/AccidentReport"
+
+            android:title="Accident report" />
+        <item
             android:id="@+id/Chat"
 
             android:title="Chat" />
