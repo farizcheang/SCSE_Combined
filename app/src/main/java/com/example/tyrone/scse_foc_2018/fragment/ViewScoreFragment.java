@@ -109,8 +109,6 @@ public class ViewScoreFragment extends Fragment {
         ArrayList<GroupScore> g = new ArrayList<>();
 
         for ( DataSnapshot score :  data.getChildren() ) {
-            //News news = new News();
-            //g.add(score.getValue(GroupScore.class));
             GroupScore ascore = score.getValue(GroupScore.class);
             String thescore = ascore.getScore();
 

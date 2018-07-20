@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.tyrone.scse_foc_2018.R;
 import com.example.tyrone.scse_foc_2018.entity.GroupScore;
+import com.example.tyrone.scse_foc_2018.entity.News;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -115,23 +117,12 @@ public class UpdateScoreFragment extends Fragment {
     }
     public void UpdateScore()
     {
-       /* int CurrentScore = sharedPref.getInt("ApusScore", 0);
-        int AddScore = Integer.parseInt(Score.getText().toString());
-        String OGname = GroupSelectSpinner.getSelectedItem().toString();
-
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(OGname + "Score", CurrentScore + AddScore);
-        editor.commit();
-
-        GetScore()*/
-    }
-    void GetScore ()
-    {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
         if ( user != null ) {
             database = FirebaseDatabase.getInstance().getReference("groups");
+
             database.addListenerForSingleValueEvent(new ValueEventListener() {
 
                 @Override
@@ -146,24 +137,21 @@ public class UpdateScoreFragment extends Fragment {
                 }
             });
         }
-
-
     }
+
     public void onGetDataSuccess (DataSnapshot data) {
-        for ( DataSnapshot score :  data.getChildren() ) {
 
-
+        for ( DataSnapshot group :  data.getChildren() ) {
 
             //if its the group that i want to edit, then do
-            /*if(score.getKey().equals(GroupSelectSpinner.getSelectedItem().toString()))
+            if(group.getKey().equals(GroupSelectSpinner.getSelectedItem().toString()))
             {
-                GroupScore ascore = score.getValue(GroupScore.class);
+                GroupScore ascore = group.getValue(GroupScore.class);
                 String thescore = ascore.getScore();
                 int AddScore = Integer.parseInt(Score.getText().toString());
 
-                //GroupScore newScore = new GroupScore("" + thescore + AddScore, "");
-                data.
-            }*/
+                database.child(group.getKey()).child("score").setValue("" + (Integer.parseInt(thescore) + AddScore));
+            }
 
 
         }

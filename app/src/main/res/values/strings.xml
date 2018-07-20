@@ -100,4 +100,23 @@
         <item>scorpius</item>
     </string-array>
 
+    <string-array name="tutorialRooms">
+        <item>Select TR</item>
+        <item>TR1</item>
+        <item>TR2</item>
+        <item>TR3</item>
+        <item>TR4</item>
+        <item>TR5</item>
+        <item>TR6</item>
+    </string-array>
+
+    <string-array name="tutorialTimings">
+        <item>Select Time</item>
+        <item>08:00 - 10:00</item>
+        <item>10:00 - 12:00</item>
+        <item>12:00 - 14:00</item>
+        <item>14:00 - 16:00</item>
+        <item>16:00 - 18:00</item>
+    </string-array>
+
 </resources>

@@ -14,6 +14,7 @@ import com.example.tyrone.scse_foc_2018.controller.MemberController;
 import com.example.tyrone.scse_foc_2018.controller.NewsController;
 import com.example.tyrone.scse_foc_2018.fragment.AccountFragment;
 import com.example.tyrone.scse_foc_2018.fragment.NewsFragment;
+import com.example.tyrone.scse_foc_2018.fragment.TrReportFragment;
 import com.example.tyrone.scse_foc_2018.fragment.UpdateNewsFragment;
 import com.example.tyrone.scse_foc_2018.fragment.UpdateScoreFragment;
 import com.example.tyrone.scse_foc_2018.fragment.ViewScoreFragment;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ViewScoreFragment scoreFragment;
     private UpdateScoreFragment updateScoreFragment;
 
+    private TrReportFragment trReportFragment;
     private AccountFragment accountFragment;
 
     @VisibleForTesting
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         updateNewsFragment = new UpdateNewsFragment();
         scoreFragment = new ViewScoreFragment();
         updateScoreFragment = new UpdateScoreFragment();
+        trReportFragment = new TrReportFragment();
         accountFragment = new AccountFragment();
         memberController = new MemberController();
 
@@ -114,6 +117,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
+                            case "TR report" :
+                                ft.replace(R.id.fl_contents,trReportFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
                             case "Account" :
                                 ft.replace(R.id.fl_contents,accountFragment);
                                 ft.addToBackStack(null);
@@ -149,7 +157,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onClick(View v) {
                         //Toast.makeText(LoginActivity.this,"clicking Toolbar");
                         mDrawerLayout.openDrawer(Gravity.START);
-                        Log.i("Group Name:",memberController.currentMember.getGroup());
+
+                        //this line caused an error
+                        //java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.example.tyrone.scse_foc_2018.entity.Member.getGroup()' on a null object reference
+                        //Log.i("Group Name:",memberController.currentMember.getGroup());
                     }
                 }
         );

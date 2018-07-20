@@ -41,7 +41,7 @@
             android:layout_height="68dp"
             android:layout_alignBottom="@+id/LeoImageView"
             android:layout_alignStart="@+id/CorvusTextView"
-            android:text="TextView"
+            android:text=""
             android:textSize="30sp" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_height="68dp"
             android:layout_alignBottom="@+id/LyraImageView"
             android:layout_alignStart="@+id/CorvusTextView"
-            android:text="TextView"
+            android:text=""
             android:textSize="30sp" />
 
         <TextView
@@ -59,7 +59,7 @@
             android:layout_height="68dp"
             android:layout_alignBottom="@+id/OrionImageView"
             android:layout_alignStart="@+id/CorvusTextView"
-            android:text="TextView"
+            android:text=""
             android:textSize="30sp" />
 
         <TextView
@@ -68,7 +68,7 @@
             android:layout_height="68dp"
             android:layout_alignBottom="@+id/ScorpiusImageView"
             android:layout_alignStart="@+id/CorvusTextView"
-            android:text="TextView"
+            android:text=""
             android:textSize="30sp" />
 
         <TextView
@@ -77,7 +77,7 @@
             android:layout_height="68dp"
             android:layout_above="@+id/CorvusImageView"
             android:layout_alignStart="@+id/LeoTextView"
-            android:text="TextView"
+            android:text=""
             android:textSize="30sp" />
 
         <TextView
@@ -87,7 +87,7 @@
             android:layout_alignBottom="@+id/CorvusImageView"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="12dp"
-            android:text="TextView"
+            android:text=""
             android:textSize="30sp" />
 
         <ImageView
