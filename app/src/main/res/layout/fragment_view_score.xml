@@ -5,28 +5,9 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     android:fitsSystemWindows="true">
 
-    <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
-    <FrameLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <include layout="@layout/toolbar" />
-
-    </FrameLayout>
-
-
-
-    <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:menu="@menu/drawer_view"
-        app:headerLayout="@layout/nav_header" />
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -40,8 +21,9 @@
             android:layout_width="130dp"
             android:layout_height="68dp"
             android:layout_alignBottom="@+id/LeoImageView"
-            android:layout_alignStart="@+id/CorvusTextView"
+            android:layout_alignStart="@+id/ApusTextView"
             android:text="TextView"
+            android:textColor="#f8f8f8"
             android:textSize="30sp" />
 
         <TextView
@@ -49,8 +31,9 @@
             android:layout_width="130dp"
             android:layout_height="68dp"
             android:layout_alignBottom="@+id/LyraImageView"
-            android:layout_alignStart="@+id/CorvusTextView"
+            android:layout_alignStart="@+id/LeoTextView"
             android:text="TextView"
+            android:textColor="#f8f8f8"
             android:textSize="30sp" />
 
         <TextView
@@ -58,8 +41,9 @@
             android:layout_width="130dp"
             android:layout_height="68dp"
             android:layout_alignBottom="@+id/OrionImageView"
-            android:layout_alignStart="@+id/CorvusTextView"
+            android:layout_alignStart="@+id/LeoTextView"
             android:text="TextView"
+            android:textColor="#f8f8f8"
             android:textSize="30sp" />
 
         <TextView
@@ -67,8 +51,9 @@
             android:layout_width="130dp"
             android:layout_height="68dp"
             android:layout_alignBottom="@+id/ScorpiusImageView"
-            android:layout_alignStart="@+id/CorvusTextView"
+            android:layout_alignStart="@+id/LeoTextView"
             android:text="TextView"
+            android:textColor="#f8f8f8"
             android:textSize="30sp" />
 
         <TextView
@@ -76,8 +61,9 @@
             android:layout_width="130dp"
             android:layout_height="68dp"
             android:layout_above="@+id/CorvusImageView"
-            android:layout_alignStart="@+id/LeoTextView"
+            android:layout_toEndOf="@+id/CorvusImageView"
             android:text="TextView"
+            android:textColor="#f8f8f8"
             android:textSize="30sp" />
 
         <TextView
@@ -85,57 +71,61 @@
             android:layout_width="130dp"
             android:layout_height="68dp"
             android:layout_alignBottom="@+id/CorvusImageView"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="12dp"
+            android:layout_alignStart="@+id/ApusTextView"
             android:text="TextView"
+            android:textColor="#f8f8f8"
             android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/CorvusImageView"
-            android:layout_width="181dp"
-            android:layout_height="80dp"
-            android:layout_above="@+id/LeoImageView"
-            android:layout_alignParentStart="true"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_alignStart="@+id/imageView"
+            android:layout_below="@+id/imageView"
+            android:adjustViewBounds="true"
             app:srcCompat="@mipmap/og_corvus_small" />
 
         <ImageView
             android:id="@+id/LeoImageView"
-            android:layout_width="181dp"
-            android:layout_height="80dp"
-            android:layout_above="@+id/LyraImageView"
-            android:layout_alignParentStart="true"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_alignStart="@+id/CorvusImageView"
+            android:layout_below="@+id/CorvusImageView"
             app:srcCompat="@mipmap/og_leo_small" />
 
         <ImageView
             android:id="@+id/LyraImageView"
-            android:layout_width="181dp"
-            android:layout_height="80dp"
-            android:layout_above="@+id/OrionImageView"
-            android:layout_alignParentStart="true"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_alignStart="@+id/CorvusImageView"
+            android:layout_below="@+id/LeoTextView"
             app:srcCompat="@mipmap/og_lyra_small" />
 
         <ImageView
             android:id="@+id/ScorpiusImageView"
-            android:layout_width="181dp"
-            android:layout_height="80dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_below="@+id/LyraImageView"
+            android:layout_toStartOf="@+id/LeoTextView"
             app:srcCompat="@mipmap/og_scorpius_small" />
 
         <ImageView
             android:id="@+id/OrionImageView"
-            android:layout_width="181dp"
-            android:layout_height="80dp"
-            android:layout_above="@+id/ScorpiusImageView"
-            android:layout_alignParentStart="true"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_alignStart="@+id/CorvusImageView"
+            android:layout_below="@+id/ScorpiusImageView"
             app:srcCompat="@mipmap/og_orion_small" />
 
         <ImageView
-            android:id="@+id/ApusImageView"
-            android:layout_width="183dp"
-            android:layout_height="82dp"
-            android:layout_above="@+id/CorvusImageView"
+            android:id="@+id/imageView"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="18dp"
+            android:adjustViewBounds="true"
             app:srcCompat="@mipmap/og_apus_small" />
 
     </RelativeLayout>
