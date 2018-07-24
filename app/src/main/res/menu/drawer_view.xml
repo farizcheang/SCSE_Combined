@@ -33,6 +33,10 @@
 
             android:title="Accident report" />
         <item
+            android:id="@+id/ViewAccidentReport"
+
+            android:title="View Accident report" />
+        <item
             android:id="@+id/Chat"
 
             android:title="Chat" />

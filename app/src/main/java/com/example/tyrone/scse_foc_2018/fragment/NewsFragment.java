@@ -30,6 +30,7 @@ public class NewsFragment extends Fragment {
     NewsAdapter newsAdapter;
 
 
+    //the part that refrehses the page every second
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
         @Override

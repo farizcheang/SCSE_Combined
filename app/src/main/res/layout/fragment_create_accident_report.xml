@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,17 +29,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="27dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="38dp"
         android:text="Send" />
 
     <EditText
         android:id="@+id/DescriptionText"
         android:layout_width="match_parent"
-        android:layout_height="310dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="361dp"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="107dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="70dp"
         android:ems="10"
         android:hint="Description"
         android:inputType="textMultiLine" />
@@ -47,9 +49,10 @@
         android:id="@+id/InfoTextView"
         android:layout_width="51dp"
         android:layout_height="29dp"
-        android:layout_alignBaseline="@+id/SendButton"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="49dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="91dp"
+        android:layout_marginEnd="53dp"
         android:text="info" />
 
 
@@ -59,8 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="62dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Student name"
         android:inputType="textMultiLine"
@@ -69,4 +72,42 @@
         android:selectAllOnFocus="false"
         android:singleLine="false"
         android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/ImageCancelButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignBottom="@+id/AccidentImageView"
+        android:layout_alignStart="@+id/UploadImageButton"
+        android:background="@android:drawable/ic_menu_close_clear_cancel"
+        android:textSize="11sp" />
+
+    <Button
+        android:id="@+id/UploadImageButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/InfoTextView"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="-91dp"
+        android:background="@android:drawable/ic_menu_camera"
+        android:textSize="11sp" />
+
+    <ImageView
+        android:id="@+id/AccidentImageView"
+        android:layout_width="82dp"
+        android:layout_height="75dp"
+        android:layout_alignStart="@+id/studentNameTextView"
+        android:layout_below="@+id/InfoTextView"
+        android:layout_marginTop="-91dp"
+        android:src="@mipmap/ic_edit" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/InfoTextView"
+        android:layout_marginStart="18dp"
+        android:text="Upload Image (Optional)" />
 </RelativeLayout>

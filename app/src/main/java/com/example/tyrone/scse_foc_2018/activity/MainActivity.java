@@ -18,6 +18,7 @@ import com.example.tyrone.scse_foc_2018.fragment.NewsFragment;
 import com.example.tyrone.scse_foc_2018.fragment.TrReportFragment;
 import com.example.tyrone.scse_foc_2018.fragment.UpdateNewsFragment;
 import com.example.tyrone.scse_foc_2018.fragment.UpdateScoreFragment;
+import com.example.tyrone.scse_foc_2018.fragment.ViewAccidentReportFragment;
 import com.example.tyrone.scse_foc_2018.fragment.ViewScoreFragment;
 
 import android.widget.Button;
@@ -52,7 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private UpdateScoreFragment updateScoreFragment;
 
     private TrReportFragment trReportFragment;
+
     private CreateAccidentReportFragment createAccidentReportFragment;
+    private ViewAccidentReportFragment viewAccidentReportFragment;
 
     private AccountFragment accountFragment;
 
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         updateScoreFragment = new UpdateScoreFragment();
         trReportFragment = new TrReportFragment();
         createAccidentReportFragment = new CreateAccidentReportFragment();
+        viewAccidentReportFragment = new ViewAccidentReportFragment();
         accountFragment = new AccountFragment();
         memberController = new MemberController();
 
@@ -128,6 +132,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 break;
                             case "Accident report" :
                                 ft.replace(R.id.fl_contents,createAccidentReportFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
+                            case "View Accident report" :
+                                ft.replace(R.id.fl_contents,viewAccidentReportFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;

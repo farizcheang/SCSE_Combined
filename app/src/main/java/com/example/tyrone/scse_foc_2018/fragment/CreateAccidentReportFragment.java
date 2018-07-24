@@ -1,7 +1,11 @@
 package com.example.tyrone.scse_foc_2018.fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,11 +24,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import static android.app.Activity.RESULT_OK;
+
 public class CreateAccidentReportFragment extends Fragment {
+
+    private final int REQUEST_TAKE_PICTURE = 0;
 
     private FirebaseAuth mAuth;
     private DatabaseReference database;
@@ -38,12 +48,45 @@ public class CreateAccidentReportFragment extends Fragment {
 
     android.widget.TextView Description;
     Button SendButton;
+    Button UploadImageButton;
+    Button ImageCancelButton;
+
+    ImageView AccidentImageView;
+    String encodedImage = "";
 
     private View.OnClickListener SendButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             SendReport();
         }
+    };
+    private View.OnClickListener UploadImageButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            UploadImage();
+        }
+    };
+    private View.OnClickListener ImageCancelButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ImageCancel();
+        }
+    };
+    AdapterView.OnItemSelectedListener AdapterListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view,int pos, long id) {
+            CurrentAccident = AccidentSpinner.getSelectedItem().toString();
+
+            if(CurrentAccident.equals("Select Accident")) {
+                //send a prompt to indicate that cannot send
+                SendButton.setEnabled(false);
+            }
+            else SendButton.setEnabled(true);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {}
+
     };
 
     TextView InfomationTextView;
@@ -71,64 +114,37 @@ public class CreateAccidentReportFragment extends Fragment {
         StudentSpinner = getActivity().findViewById(R.id.StudentSpinner);
 
         ArrayAdapter<String> AccidentAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray((R.array.accidentTypes)));
-        //ArrayAdapter<String> StudentAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray((R.array.studentNames)));
 
         AccidentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         AccidentSpinner.setAdapter(AccidentAdapter);
-        //StudentSpinner.setAdapter(StudentAdapter);
 
         CurrentAccident = AccidentSpinner.getSelectedItem().toString();
-        //CurrentStudent = StudentSpinner.getSelectedItem().toString();
 
-        setUpListeners();
+        AccidentSpinner.setOnItemSelectedListener(AdapterListener);
 
+        //text
         Description = (TextView) getActivity().findViewById(R.id.DescriptionText);
         studentNameTextView = getActivity().findViewById(R.id.studentNameTextView);
+
+        InfomationTextView = getActivity().findViewById(R.id.InfoTextView);
+
+        //image views
+        AccidentImageView = getActivity().findViewById(R.id.AccidentImageView);
+
+        //buttons
+        UploadImageButton = getActivity().findViewById(R.id.UploadImageButton);
+        UploadImageButton.setOnClickListener(UploadImageButtonOnClickListener);
 
         SendButton = getActivity().findViewById(R.id.SendButton);
         SendButton.setEnabled(false);
         SendButton.setOnClickListener(SendButtonOnClickListener);
 
-        InfomationTextView = getActivity().findViewById(R.id.InfoTextView);
-    }
 
-    private void setUpListeners()
-    {
-        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,int pos, long id) {
-                CurrentAccident = AccidentSpinner.getSelectedItem().toString();
+        ImageCancelButton = getActivity().findViewById(R.id.ImageCancelButton);
+        ImageCancelButton.setOnClickListener(ImageCancelButtonOnClickListener);
+        ImageCancelButton.setClickable(false);
+        ImageCancelButton.setVisibility(View.INVISIBLE);
 
-                if(CurrentAccident.equals("Select Accident")) {
-                    //send a prompt to indicate that cannot send
-                    SendButton.setEnabled(false);
-                }
-                else SendButton.setEnabled(true);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-
-        };
-
-        /*AdapterView.OnItemSelectedListener listener2 = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,int pos, long id) {
-                CurrentStudent = StudentSpinner.getSelectedItem().toString();
-                if(CurrentAccident.equals("Select Accident") || CurrentStudent.equals("Select Student")) {
-                    //send a prompt to indicate that cannot send
-                    SendButton.setEnabled(false);
-                }
-                else SendButton.setEnabled(true);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
-
-        };*/
-
-        AccidentSpinner.setOnItemSelectedListener(listener);
-        //StudentSpinner.setOnItemSelectedListener(listener2);
     }
 
     public void SendReport()
@@ -149,7 +165,7 @@ public class CreateAccidentReportFragment extends Fragment {
             String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
 
-            AccidentReport accident = new AccidentReport(studentNameTextView.getText().toString(), Description.getText().toString(), CurrentAccident, date);
+            AccidentReport accident = new AccidentReport(studentNameTextView.getText().toString(), Description.getText().toString(), CurrentAccident, date, encodedImage);
             mAuth = FirebaseAuth.getInstance();
             FirebaseUser user = mAuth.getCurrentUser();
 
@@ -164,6 +180,43 @@ public class CreateAccidentReportFragment extends Fragment {
 
             InfomationTextView.setText("Case has been sent");
 
+            //get the user out of the activity
+            getActivity().onBackPressed();
+        }
+    }
+    public void ImageCancel()
+    {
+        ImageCancelButton.setClickable(false);
+        ImageCancelButton.setVisibility(View.INVISIBLE);
+        AccidentImageView.setImageResource(R.mipmap.ic_edit);
+        encodedImage = "";
+    }
+    public void UploadImage()
+    {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null)
+        {
+            startActivityForResult(takePictureIntent, REQUEST_TAKE_PICTURE);
+        }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if ((requestCode == REQUEST_TAKE_PICTURE) && resultCode == RESULT_OK) {
+
+            //load the image from the camera
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            //convert it to a byte array followed by String to store in DB
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] picByteArr = baos.toByteArray();
+            encodedImage = Base64.encodeToString(picByteArr, Base64.DEFAULT);
+
+            AccidentImageView.setImageBitmap(imageBitmap);
+            ImageCancelButton.setClickable(true);
+            ImageCancelButton.setVisibility(View.VISIBLE);
         }
     }
 }
