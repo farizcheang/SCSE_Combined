@@ -1,5 +1,6 @@
 package com.example.tyrone.scse_foc_2018.fragment;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -72,6 +73,19 @@ public class CreateAccidentReportFragment extends Fragment {
             ImageCancel();
         }
     };
+    private View.OnClickListener ImageViewOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //if the encoded image is NOT = "", means got image, THEN do this view image Fragment
+            if(!encodedImage.equals("")) {
+                ViewImageFragment viewImageFragment = ViewImageFragment.newInstance(encodedImage);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.add(R.id.fl_contents, viewImageFragment);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        }
+    };
     AdapterView.OnItemSelectedListener AdapterListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view,int pos, long id) {
@@ -130,6 +144,7 @@ public class CreateAccidentReportFragment extends Fragment {
 
         //image views
         AccidentImageView = getActivity().findViewById(R.id.AccidentImageView);
+        AccidentImageView.setOnClickListener(ImageViewOnClickListener);
 
         //buttons
         UploadImageButton = getActivity().findViewById(R.id.UploadImageButton);

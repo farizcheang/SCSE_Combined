@@ -1,5 +1,9 @@
 package com.example.tyrone.scse_foc_2018.activity;
+import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.NavigationView;
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MemberController memberController;
 
     //  Fragment
+    Fragment currentFragment;
     private NewsFragment newsFragment;
     private UpdateNewsFragment updateNewsFragment;
 
@@ -88,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.add(R.id.fl_contents,newsFragment).commit();
+            currentFragment = newsFragment;
         }
 
     }
@@ -145,18 +151,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
+                            case "Logout"  :
+                                //delete shared pref stuff
+                                doLogOut();
 
+                                //change the page
+                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                                break;
 
-                                /*
-                                <string name="Updates">Updates</string>
-    <string name="Add_Updates">Add Updates</string>
-    <string name="View_Score">Analyse</string>
-    <string name="Add_Score">New Listing</string>
-    <string name="Account">Account</string>
-    <string name="Chat">Chats</string>
-    <string name="TrReport">Tr Report</string>
-    <string name="Logout">Logout</string>
-                                 */
                         }
                         Log.i("MenuItem",item.toString());
                         return true;
@@ -188,6 +192,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
     }
 
+    public void doLogOut()
+    {
+        //delete the shared pref stuff
+        SharedPreferences sharedPref = this.getSharedPreferences("LoginInformation", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        //clear everything
+        editor.clear();
+        editor.commit();
+
+    }
     protected void setupToolbar() {
 
         /*Toolbar toolbar = findViewById(R.id.toolbar);

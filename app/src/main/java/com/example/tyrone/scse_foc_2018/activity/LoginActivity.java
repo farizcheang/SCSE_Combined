@@ -36,7 +36,7 @@ public class LoginActivity extends BaseAuthActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        sharedPref = this.getSharedPreferences("LoginInformation", Context.MODE_PRIVATE);
 
         et_email = (EditText)findViewById(R.id.etEmail);
         et_password = (EditText)findViewById(R.id.etPassword);
@@ -50,7 +50,7 @@ public class LoginActivity extends BaseAuthActivity {
             String password = sharedPref.getString("password", "");
 
             //attempt the login with the saved credentials
-            attemptLogin(email, password);
+            attemptLogin(email, password, true);
         }
 
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +69,7 @@ public class LoginActivity extends BaseAuthActivity {
                 //Intent intent = new Intent(LoginActivity.this, NewsActivity.class);
                 //startActivity(intent);
                 //finish();
-                attemptLogin(et_email.getText().toString(),et_password.getText().toString() );
+                attemptLogin(et_email.getText().toString(),et_password.getText().toString(), false );
             }
 
         });
@@ -151,8 +151,13 @@ public class LoginActivity extends BaseAuthActivity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin(String email, final String password) {
-        if (validateLoginForm() || sharedPref.getBoolean("logged", false)) {
+    private void attemptLogin(String email, final String password, boolean loginWithSavedCredentials) {
+
+        boolean validated = true;
+        if(!loginWithSavedCredentials)
+            validated = validateLoginForm();
+
+        if (validated || sharedPref.getBoolean("logged", false)) {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgressDialog();

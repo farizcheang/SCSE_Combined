@@ -1,5 +1,6 @@
 package com.example.tyrone.scse_foc_2018.fragment;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -83,6 +85,36 @@ public class TrReportFragment extends Fragment {
     ImageView BeforeImage;
     ImageView AfterImage;
 
+    String BeforeImageEncoded = "";
+    String AfterImageEncoded = "";
+
+    private View.OnClickListener BeforeImageOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //if the encoded image is NOT = "", means got image, THEN do this view image Fragment
+            if(!BeforeImageEncoded.equals("")) {
+                ViewImageFragment viewImageFragment = ViewImageFragment.newInstance(BeforeImageEncoded);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.add(R.id.fl_contents, viewImageFragment);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        }
+    };
+    private View.OnClickListener AfterImageOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //if the encoded image is NOT = "", means got image, THEN do this view image Fragment
+            if(!AfterImageEncoded.equals("")) {
+
+                ViewImageFragment viewImageFragment = ViewImageFragment.newInstance(AfterImageEncoded);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.add(R.id.fl_contents, viewImageFragment);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        }
+    };
     private View.OnClickListener UpdateButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -110,7 +142,10 @@ public class TrReportFragment extends Fragment {
         InfoMessage = getActivity().findViewById(R.id.InfoMessage);
 
         BeforeImage = getActivity().findViewById(R.id.BeforeImage);
+        BeforeImage.setOnClickListener(BeforeImageOnClickListener);
+
         AfterImage = getActivity().findViewById(R.id.AfterImage);
+        AfterImage.setOnClickListener(AfterImageOnClickListener);
 
         UpdateButton = getActivity().findViewById(R.id.UpdateButton);
         UpdateButton.setEnabled(false);
@@ -174,8 +209,9 @@ public class TrReportFragment extends Fragment {
         TimingSpinner.setOnItemSelectedListener(listener2);
     }
     private void uploadFile(String encoded, int BeforeOrAfter) {
-        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-
+        //TODO change date to appropriate one
+        //String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        String date = "2018-07-21";
         if(BeforeOrAfter == REQUEST_BEFORE_IMAGE)//before
             FirebaseDatabase.getInstance().getReference("tutorialreport").child(date).child(CurrentRoom).child(CurrentTiming).child("beforeimage").setValue(encoded);
         else//after
@@ -197,7 +233,9 @@ public class TrReportFragment extends Fragment {
             FirebaseUser user = mAuth.getCurrentUser();
 
             if ( user != null ) {
-                String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                //TODO change date to appropriate one
+                //String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                String date = "2018-07-21";
                 database = FirebaseDatabase.getInstance().getReference("tutorialreport").child(date).child(CurrentRoom).child(CurrentTiming).getRef();
 
                 database.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -241,7 +279,8 @@ public class TrReportFragment extends Fragment {
             BeforeImage.setImageResource(R.mipmap.ic_launcher);
             AfterImage.setImageResource(R.mipmap.ic_launcher);
 
-
+            BeforeImageEncoded = "";
+            AfterImageEncoded = "";
         }
         else if (status == STATUS_HALFWAY)
         {
@@ -259,6 +298,10 @@ public class TrReportFragment extends Fragment {
 
             BeforeImage.setImageBitmap(bitmap);
             AfterImage.setImageResource(R.mipmap.ic_launcher);
+
+            BeforeImageEncoded = report.getBeforeimage();
+            AfterImageEncoded = "";
+
         }
         else if(status == STATUS_FINISH)
         {
@@ -276,6 +319,9 @@ public class TrReportFragment extends Fragment {
             Bitmap bitmap2 = BitmapFactory.decodeByteArray(AfterPicByteArr, 0, AfterPicByteArr.length);
 
             AfterImage.setImageBitmap(bitmap2);
+
+            BeforeImageEncoded = report.getBeforeimage();
+            AfterImageEncoded = report.getAfterimage();
         }
     }
     private void setButtonClickToTakeBefore()
@@ -326,6 +372,7 @@ public class TrReportFragment extends Fragment {
             if(requestCode == REQUEST_BEFORE_IMAGE) {
                 SetReportStatus(STATUS_HALFWAY);
                 BeforeImage.setImageBitmap(imageBitmap);
+
             }
             else if(requestCode == REQUEST_AFTER_IMAGE) {
                 SetReportStatus(STATUS_FINISH);
@@ -341,66 +388,12 @@ public class TrReportFragment extends Fragment {
     }
     private void SetReportStatus(int status)
     {
-        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        //TODO change date to appropriate one
+        //String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        String date = "2018-07-21";
+
         FirebaseDatabase.getInstance().getReference("tutorialreport").child(date)
                 .child(CurrentRoom).child(CurrentTiming).child("status").setValue("" + status);
 
-    }
-    /* private File createImageFile(int request) throws IOException {
-        // Create an image file name
-       String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        //String imageFileName = "JPEG_" + timeStamp + "_";
-        String imageFileName = CurrentRoom + ":" + CurrentTiming;
-
-        if(request == REQUEST_BEFORE_IMAGE) imageFileName += ":" + "before";
-        else imageFileName += ":" + "after";
-
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = new File(storageDir, "/" + imageFileName + ".jpg");
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
-        return new File("", "");
-    }*/
-
-    private void galleryAddPic() {
-       /* Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);*/
-    }
-
-    public void setPic(ImageView mImageView, int beforeOrAfter) {
-
-        //ImageView mImageView = (ImageView) findViewById(R.id.PreviewImage2);
-        // Get the dimensions of the View
-        /*int targetW = mImageView.getWidth();
-        int targetH = mImageView.getHeight();
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        String PhotoPath = getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/" + CurrentRoom + ":" + CurrentTiming;
-
-        //before and after
-        if(beforeOrAfter == 0) PhotoPath += ":" + "before.jpg";
-        else PhotoPath += ":" + "after.jpg";
-
-        Bitmap bitmap = BitmapFactory.decodeFile(PhotoPath, bmOptions);
-        mImageView.setImageBitmap(bitmap);*/
     }
 }
