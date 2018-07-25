@@ -1,6 +1,8 @@
 package com.example.tyrone.scse_foc_2018.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends BaseAuthActivity {
 
+    SharedPreferences sharedPref;
+
 
     Toolbar toolbar;
 
@@ -32,14 +36,25 @@ public class LoginActivity extends BaseAuthActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        sharedPref = this.getPreferences(Context.MODE_PRIVATE);
 
         et_email = (EditText)findViewById(R.id.etEmail);
         et_password = (EditText)findViewById(R.id.etPassword);
         btn_login = (Button) findViewById(R.id.bLogin);
         btn_register = (Button) findViewById(R.id.bRegister);
 
+        //if the logged is true, means got login properly before
+        if(sharedPref.getBoolean("logged", false))
+        {
+            String email = sharedPref.getString("email", "");
+            String password = sharedPref.getString("password", "");
+
+            //attempt the login with the saved credentials
+            attemptLogin(email, password);
+        }
+
         btn_register.setOnClickListener(new View.OnClickListener() {
-            public void onClick( View v ) {
+            public void onClick(View v) {
                 //hideProgressDialog();
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
@@ -49,16 +64,15 @@ public class LoginActivity extends BaseAuthActivity {
         });
 
         btn_login.setOnClickListener(new View.OnClickListener() {
-            public void onClick( View v ) {
+            public void onClick(View v) {
                 //hideProgressDialog();
                 //Intent intent = new Intent(LoginActivity.this, NewsActivity.class);
                 //startActivity(intent);
                 //finish();
-                attemptLogin();
+                attemptLogin(et_email.getText().toString(),et_password.getText().toString() );
             }
 
         });
-
     }
 
     public void initToolBar() {
@@ -137,19 +151,23 @@ public class LoginActivity extends BaseAuthActivity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin() {
-        if (validateLoginForm()) {
+    private void attemptLogin(String email, final String password) {
+        if (validateLoginForm() || sharedPref.getBoolean("logged", false)) {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgressDialog();
 
             final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-            mAuth.signInWithEmailAndPassword(et_email.getText().toString(), et_password.getText().toString())
+            mAuth.signInWithEmailAndPassword(email , password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+
+
+                                saveCredentials();
+
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d((getString(R.string.REGISTERED_TAG)), "login:success");
                                 if (mAuth.getCurrentUser() != null) {
@@ -159,6 +177,7 @@ public class LoginActivity extends BaseAuthActivity {
                                     finish();
                                 }
                             } else {
+                                unsaveCredentials();
                                 hideProgressDialog();
                                 // If sign in fails, display a message to the user.
                                 Log.w((getString(R.string.REGISTERED_TAG)), "login:failure", task.getException());
@@ -170,5 +189,27 @@ public class LoginActivity extends BaseAuthActivity {
                     });
         }
 
+    }
+    private void saveCredentials() {
+
+        //if logged is true, then no need to save credentials as its already saved
+        if(sharedPref.getBoolean("logged", false)) {
+        }
+        else {
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("email", et_email.getText().toString());
+            editor.putString("password", et_password.getText().toString() );
+            editor.putBoolean("logged", true);
+            editor.commit();
+        }
+
+    }
+    private void unsaveCredentials() {
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        //clear everything
+        editor.clear();
+        editor.commit();
     }
 }
