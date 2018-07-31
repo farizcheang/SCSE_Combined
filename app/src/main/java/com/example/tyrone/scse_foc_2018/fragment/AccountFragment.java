@@ -43,6 +43,8 @@ public class AccountFragment extends Fragment {
     private ImageView iv_userProfilePic;
     private TextView tv_userName;
     private TextView tv_userEmail;
+    private TextView tv_newPassword;
+    private TextView tv_oldPassword;
     private FloatingActionButton btn_confirm;
 
     private byte[] profilepicByteArr;
@@ -73,6 +75,8 @@ public class AccountFragment extends Fragment {
         tv_userName = v.findViewById(R.id.et_userName);
         //tv_userMobileNo = v.findViewById(R.id.tv_userMobileNo);
         tv_userEmail = v.findViewById(R.id.et_Email);
+        tv_newPassword = v.findViewById(R.id.et_userNewPassword);
+        tv_oldPassword = v.findViewById(R.id.et_userOldPassword);
         //btn_camera = v.findViewById(R.id.btn_camera);
         btn_confirm = v.findViewById(R.id.btn_confirm);
 
@@ -99,6 +103,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //directs to Edit Account Fragment
+                memberController.updateMemberRecord(tv_newPassword.toString());
                 /*Fragment fragment = new EditAccountFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.fl_contents, fragment);
