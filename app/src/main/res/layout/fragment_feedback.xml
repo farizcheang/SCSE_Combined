@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateSpinner"
+        android:layout_centerHorizontal="true"
+        android:text="Games :"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/welfare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gamesRatingBar"
+        android:layout_centerHorizontal="true"
+        android:text="Welfare :"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/hospitality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welfareRatingBar"
+        android:layout_centerHorizontal="true"
+        android:text="Hospitatlity :"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/feedbackText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hospitalityRatingBar"
+        android:layout_centerHorizontal="true"
+        android:text="Others :"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Date :"
+        android:textSize="25sp" />
+
+    <Spinner
+        android:id="@+id/dateSpinner"
+        android:layout_width="200dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/date"
+        android:layout_centerHorizontal="true" />
+
+    <RatingBar
+        android:id="@+id/gamesRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true" />
+
+    <RatingBar
+        android:id="@+id/welfareRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welfare"
+        android:layout_centerHorizontal="true" />
+
+    <RatingBar
+        android:id="@+id/hospitalityRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hospitality"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="363dp"
+        android:layout_height="157dp"
+        android:layout_below="@+id/feedbackText"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:text="(Optional)" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="Button" />
+
+</RelativeLayout>

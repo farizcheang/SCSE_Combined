@@ -29,14 +29,13 @@
                 />
 
             <TextView
-                android:id="@id/tv_userName"
+                android:id="@+id/et_userName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="firstname lastname"
-                android:paddingTop="8dp"
-                android:textColor="@color/white"
                 android:gravity="center"
-                />
+                android:paddingTop="8dp"
+                android:text="firstname lastname"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -54,7 +53,7 @@
                 android:paddingBottom="7dp"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingTop="7dp"
-                android:text="@string/contacts"
+                android:text="Change Password"
                 android:textColor="@color/color_primary"
                 android:textStyle="bold" />
 
@@ -66,14 +65,13 @@
                 android:paddingTop="15dp">
 
                 <AutoCompleteTextView
-                    android:id="@+id/et_userMobileNo"
+                    android:id="@+id/et_userOldPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:hint="@string/prompt_mobileNo"
-                    android:inputType="phone"
+                    android:hint="Old Password"
+                    android:inputType="textPassword"
                     android:maxLines="1"
-                    android:text="91234567"
                     android:textSize="15sp" />
 
             </android.support.design.widget.TextInputLayout>
@@ -87,14 +85,13 @@
                 android:paddingTop="5dp">
 
                 <AutoCompleteTextView
-                    android:id="@+id/et_userEmail"
+                    android:id="@+id/et_userNewPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:hint="@string/prompt_email"
-                    android:inputType="textEmailAddress"
+                    android:hint="New Password"
+                    android:inputType="textPassword"
                     android:maxLines="1"
-                    android:text="userEmail@gmail.com"
                     android:textSize="15sp"
 
                     />
@@ -120,20 +117,20 @@
                 android:paddingBottom="5dp"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingTop="7dp"
-                android:text="account"
+                android:text="Account"
                 android:textColor="@color/color_primary"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btn_changePassword"
+            <TextView
+                android:id="@+id/et_Email"
+                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="@dimen/activity_horizontal_margin"
                 android:background="@color/off_white"
-                style="?android:textAppearanceSmall"
-                android:text="@string/change_password"
+                android:text="Email"
                 android:textAllCaps="false"
-                />
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_deleteAccount"

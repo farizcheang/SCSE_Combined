@@ -42,10 +42,8 @@ public class AccountFragment extends Fragment {
 
     private ImageView iv_userProfilePic;
     private TextView tv_userName;
-    private TextView tv_userMobileNo;
     private TextView tv_userEmail;
-    private FloatingActionButton btn_camera;
-    private FloatingActionButton btn_editAccount;
+    private FloatingActionButton btn_confirm;
 
     private byte[] profilepicByteArr;
     private Bitmap profilepic;
@@ -68,21 +66,21 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_account, container, false);
+        View v = inflater.inflate(R.layout.fragment_edit_account, container, false);
         setHasOptionsMenu(true);
 
-        iv_userProfilePic = v.findViewById(R.id.ivMenuUserProfilePhoto);
-        tv_userName = v.findViewById(R.id.tv_userName);
-        tv_userMobileNo = v.findViewById(R.id.tv_userMobileNo);
-        tv_userEmail = v.findViewById(R.id.tv_userEmail);
-        btn_camera = v.findViewById(R.id.btn_camera);
-        btn_editAccount = v.findViewById(R.id.btn_editAccount);
+        //iv_userProfilePic = v.findViewById(R.id.ivMenuUserProfilePhoto);
+        tv_userName = v.findViewById(R.id.et_userName);
+        //tv_userMobileNo = v.findViewById(R.id.tv_userMobileNo);
+        tv_userEmail = v.findViewById(R.id.et_Email);
+        //btn_camera = v.findViewById(R.id.btn_camera);
+        btn_confirm = v.findViewById(R.id.btn_confirm);
 
-        registerForContextMenu(btn_camera); //display menu: open camera, open gallery.
+        //registerForContextMenu(btn_camera); //display menu: open camera, open gallery.
 
         memberController.retrieveMemberRecord();
 
-        btn_camera.setOnLongClickListener(new View.OnLongClickListener() {
+        /*btn_camera.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 getActivity().closeContextMenu();
@@ -95,9 +93,9 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().openContextMenu(v);
             }
-        });
+        });*/
 
-        btn_editAccount.setOnClickListener(new View.OnClickListener(){
+        btn_confirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 //directs to Edit Account Fragment
