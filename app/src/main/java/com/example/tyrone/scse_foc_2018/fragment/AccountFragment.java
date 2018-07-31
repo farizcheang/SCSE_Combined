@@ -78,7 +78,7 @@ public class AccountFragment extends Fragment {
 
         //registerForContextMenu(btn_camera); //display menu: open camera, open gallery.
 
-        memberController.retrieveMemberRecord();
+        //memberController.retrieveMemberRecord();
 
         /*btn_camera.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

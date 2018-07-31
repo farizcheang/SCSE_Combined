@@ -5,9 +5,12 @@ package com.example.tyrone.scse_foc_2018.controller;
  */
 
 import android.app.Fragment;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.tyrone.scse_foc_2018.fragment.AccountFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +47,49 @@ public class MemberController {
         }
         else {
             Log.d(TAG, "createMember:createRecord:failure");
+        }
+        return result;
+    }
+
+    public boolean updateMemberRecord(String newPassword){
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user != null) {
+            database = FirebaseDatabase.getInstance().getReference();
+
+            //Log.d(TAG, "updateMember:password: " + member.getPassword());
+
+            //user updates their mobile and email in EditAccountFragment
+            /*user.updateEmail(member.getEmail()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Log.d(TAG, "User email address updated.");
+                    }
+                }
+            });*/
+
+            //user updates password in ChangePassword fragment
+            //database.child("member").child(user.getUid()).child("password").setValue(member.getPassword());
+            user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Log.d(TAG, "User password updated.");
+                    }
+                }
+            });
+
+            //user updates avatar in CameraviewFragment
+            //database.child("member").child(user.getUid()).child("avatar").setValue(member.getAvatar());
+
+            result = true;
+            Log.d(TAG, "updateMember:updateRecord:success");
+        }
+        else {
+            Log.d(TAG, "updateMember:updateRecord:failure");
         }
         return result;
     }
