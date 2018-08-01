@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.NavigationView;
@@ -18,6 +19,7 @@ import com.example.tyrone.scse_foc_2018.controller.MemberController;
 import com.example.tyrone.scse_foc_2018.controller.NewsController;
 import com.example.tyrone.scse_foc_2018.fragment.AccountFragment;
 import com.example.tyrone.scse_foc_2018.fragment.CreateAccidentReportFragment;
+import com.example.tyrone.scse_foc_2018.fragment.LocationCheckInFragment;
 import com.example.tyrone.scse_foc_2018.fragment.NewsFragment;
 import com.example.tyrone.scse_foc_2018.fragment.TrReportFragment;
 import com.example.tyrone.scse_foc_2018.fragment.UpdateNewsFragment;
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ViewAccidentReportFragment viewAccidentReportFragment;
 
     private AccountFragment accountFragment;
-
+    private LocationCheckInFragment locationCheckInFragment;
     @VisibleForTesting
     public ProgressDialog mProgressDialog;
 
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createAccidentReportFragment = new CreateAccidentReportFragment();
         viewAccidentReportFragment = new ViewAccidentReportFragment();
         accountFragment = new AccountFragment();
+        locationCheckInFragment = new LocationCheckInFragment();
+
         memberController = new MemberController();
 
         memberController.retrieveMemberRecord();
@@ -148,6 +152,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 break;
                             case "Account" :
                                 ft.replace(R.id.fl_contents,accountFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
+                            case "Location Check In" :
+                                ft.replace(R.id.fl_contents,locationCheckInFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;

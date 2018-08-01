@@ -37,9 +37,9 @@
 
             android:title="View Accident report" />
         <item
-            android:id="@+id/Chat"
+            android:id="@+id/LocationCheckIn"
 
-            android:title="Chat" />
+            android:title="Location Check In" />
         <item
             android:id="@+id/Logout"
 

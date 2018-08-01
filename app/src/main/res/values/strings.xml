@@ -129,4 +129,54 @@
         <item>Others</item>
     </string-array>
 
+    <string-array name="locations">
+        <item>TR+15</item>
+        <item>TR+23</item>
+        <item>Other TR in N4</item>
+        <item>Other TR in N2</item>
+
+        <item>LT1A</item>
+        <item>LT2A</item>
+        <item>LT9</item>
+        <item>LT10</item>
+        <item>LT19</item>
+        <item>LT19A</item>
+        <item>Nanyang Auditorium</item>
+
+        <item>SCSE General Office</item>
+        <item>SCSE Lounge</item>
+        <item>Hardware Lab 1</item>
+        <item>Hardware Lab 2</item>
+        <item>Hardware Lab 3</item>
+        <item>Software Lab 1</item>
+        <item>Software Lab 2</item>
+        <item>Software Lab 3</item>
+        <item>Hardware Project Lab</item>
+        <item>Software Project Lab</item>
+        <item>N4 Level 1 Outside Level 1 entrance</item>
+        <item>N4 Level 2 Outside General Office</item>
+        <item>N4-02B-49 SCSE Assoc Chair Academic Office</item>
+
+        <item>One Stop @ SAC</item>
+        <item>SAC</item>
+        <item>LWN Library</item>
+        <item>North Spine Food Court</item>
+        <item>Quad</item>
+
+        <item>SRC Main Field</item>
+        <item>SRC Pool</item>
+        <item>Multipurpose field 1</item>
+        <item>Multipurpose field 2</item>
+        <item>SRC MPC 1</item>
+        <item>SRC MPC 2</item>
+        <item>SRC MPC 3</item>
+        <item>SRC Grandstand</item>
+        <item>Wave Grandstand</item>
+
+        <item>Pavillion of TCT LT</item>
+        <item>Harbourfront MRT station</item>
+        <item>Carpark F</item>
+        <item>Sentosa</item>
+
+    </string-array>
 </resources>
