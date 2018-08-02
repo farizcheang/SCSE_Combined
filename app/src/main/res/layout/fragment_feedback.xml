@@ -1,43 +1,91 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/venueText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dateSpinner"
         android:layout_centerHorizontal="true"
-        android:text="Games :"
+        android:text="Venue/Location:"
         android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/welfare"
+        android:id="@+id/serviceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/gamesRatingBar"
+        android:layout_below="@+id/venueRatingBar"
         android:layout_centerHorizontal="true"
-        android:text="Welfare :"
+        android:text="Organiser's Service:"
         android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/hospitality"
+        android:id="@+id/refreshmentText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/welfareRatingBar"
+        android:layout_below="@+id/serviceRatingBar"
         android:layout_centerHorizontal="true"
-        android:text="Hospitatlity :"
+        android:text="Refreshment/Reception:"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/activitiesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/refreshmentRatingBar"
+        android:layout_centerHorizontal="true"
+        android:text="Acitivities/Programmes:"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/durationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activitiesRatingBar"
+        android:layout_centerHorizontal="true"
+        android:text="Duration :"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/overallText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/durationRatingBar"
+        android:layout_centerHorizontal="true"
+        android:text="Overall Experience :"
         android:textSize="25sp" />
 
     <TextView
         android:id="@+id/feedbackText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/hospitalityRatingBar"
+        android:layout_below="@+id/overallRatingBar"
         android:layout_centerHorizontal="true"
-        android:text="Others :"
+        android:text="Feedback/Suggestion :"
         android:textSize="25sp" />
+    
+    <EditText
+        android:id="@+id/feedbackEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="5"
+        android:layout_below="@+id/feedbackText"/>
+
+    <Button
+        android:id="@+id/submitFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/feedbackEdit"
+        android:text="Submit"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/date"
@@ -56,44 +104,46 @@
         android:layout_centerHorizontal="true" />
 
     <RatingBar
-        android:id="@+id/gamesRatingBar"
+        android:id="@+id/venueRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/venueText"
         android:layout_centerHorizontal="true" />
 
     <RatingBar
-        android:id="@+id/welfareRatingBar"
+        android:id="@+id/serviceRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/welfare"
+        android:layout_below="@+id/serviceText"
         android:layout_centerHorizontal="true" />
 
     <RatingBar
-        android:id="@+id/hospitalityRatingBar"
+        android:id="@+id/refreshmentRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/hospitality"
+        android:layout_below="@+id/refreshmentText"
         android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="340dp"
-        android:layout_height="155dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="57dp"
-        android:ems="10"
-        android:hint="(Optional)"
-        android:inputType="textMultiLine" />
-
-    <Button
-        android:id="@+id/btn_feedbackSubmit"
+    <RatingBar
+        android:id="@+id/activitiesRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:text="Submit"
-        android:textColor="@color/white" />
+        android:layout_below="@+id/activitiesText"
+        android:layout_centerHorizontal="true" />
+
+    <RatingBar
+        android:id="@+id/durationRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/durationText"
+        android:layout_centerHorizontal="true" />
+
+    <RatingBar
+        android:id="@+id/overallRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/overallText"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
+</ScrollView>

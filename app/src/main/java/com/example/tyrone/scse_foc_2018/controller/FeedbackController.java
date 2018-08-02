@@ -12,4 +12,10 @@ public class FeedbackController {
     private final String TAG = "FEEDBACK_CONTROLLER";
 
     public FeedbackController () {}
+
+    public boolean sendFeedback(String focDate, String gameRating, String welfareRating, String hosRating, String others) {
+        boolean result = false;
+
+        return result;
+    }
 }
