@@ -19,6 +19,7 @@ import com.example.tyrone.scse_foc_2018.controller.MemberController;
 import com.example.tyrone.scse_foc_2018.controller.NewsController;
 import com.example.tyrone.scse_foc_2018.fragment.AccountFragment;
 import com.example.tyrone.scse_foc_2018.fragment.CreateAccidentReportFragment;
+import com.example.tyrone.scse_foc_2018.fragment.FeedbackFragment;
 import com.example.tyrone.scse_foc_2018.fragment.LocationCheckInFragment;
 import com.example.tyrone.scse_foc_2018.fragment.NewsFragment;
 import com.example.tyrone.scse_foc_2018.fragment.TrReportFragment;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private UpdateScoreFragment updateScoreFragment;
 
     private TrReportFragment trReportFragment;
+    private FeedbackFragment feedbackFragment;
 
     private CreateAccidentReportFragment createAccidentReportFragment;
     private ViewAccidentReportFragment viewAccidentReportFragment;
@@ -84,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewAccidentReportFragment = new ViewAccidentReportFragment();
         accountFragment = new AccountFragment();
         locationCheckInFragment = new LocationCheckInFragment();
+        feedbackFragment = new FeedbackFragment();
 
         memberController = new MemberController();
 
@@ -157,6 +160,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 break;
                             case "Location Check In" :
                                 ft.replace(R.id.fl_contents,locationCheckInFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
+                            case "Feedback" :
+                                ft.replace(R.id.fl_contents, feedbackFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;

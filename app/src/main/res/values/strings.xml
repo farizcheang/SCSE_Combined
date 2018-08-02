@@ -101,6 +101,13 @@
         <item>scorpius</item>
     </string-array>
 
+    <string-array name="foc_dates">
+        <item>7th August</item>
+        <item>8th August</item>
+        <item>10th August</item>
+        <item>11th August</item>
+    </string-array>
+
     <string-array name="tutorialRooms">
         <item>Select TR</item>
         <item>TR1</item>

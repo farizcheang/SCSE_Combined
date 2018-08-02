@@ -7,7 +7,9 @@ package com.example.tyrone.scse_foc_2018.controller;
 import android.app.Fragment;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.tyrone.scse_foc_2018.activity.LoginActivity;
 import com.example.tyrone.scse_foc_2018.fragment.AccountFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -87,6 +89,7 @@ public class MemberController {
 
             result = true;
             Log.d(TAG, "updateMember:updateRecord:success");
+
         }
         else {
             Log.d(TAG, "updateMember:updateRecord:failure");

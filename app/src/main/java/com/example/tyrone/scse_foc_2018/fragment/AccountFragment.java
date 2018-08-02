@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +46,7 @@ public class AccountFragment extends Fragment {
     private TextView tv_userEmail;
     private TextView tv_newPassword;
     private TextView tv_oldPassword;
-    private FloatingActionButton btn_confirm;
+    private Button btn_confirm;
 
     private byte[] profilepicByteArr;
     private Bitmap profilepic;
@@ -78,7 +79,7 @@ public class AccountFragment extends Fragment {
         tv_newPassword = v.findViewById(R.id.et_userNewPassword);
         tv_oldPassword = v.findViewById(R.id.et_userOldPassword);
         //btn_camera = v.findViewById(R.id.btn_camera);
-        btn_confirm = v.findViewById(R.id.btn_confirm);
+        btn_confirm = (Button)v.findViewById(R.id.btn_confirm);
 
         //registerForContextMenu(btn_camera); //display menu: open camera, open gallery.
 
@@ -103,7 +104,15 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //directs to Edit Account Fragment
-                memberController.updateMemberRecord(tv_newPassword.toString());
+
+                boolean result = memberController.updateMemberRecord(tv_newPassword.getText().toString());
+                if ( result )
+                    Toast.makeText(getContext(), "Password Changed Successfully",
+                            Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getContext(), "Unable to Change Password1",
+                            Toast.LENGTH_SHORT).show();
+                Log.i("Password:", tv_newPassword.getText().toString());
                 /*Fragment fragment = new EditAccountFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.fl_contents, fragment);
