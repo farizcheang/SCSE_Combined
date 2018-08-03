@@ -1,6 +1,7 @@
 package com.example.tyrone.scse_foc_2018.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -84,12 +85,19 @@ public class LocationCheckInFragment extends Fragment {
         //items = getResources().getStringArray((R.array.locations));
 
         listView.setAdapter(locationAdapter);
+        CurrentLocation = locationAdapter.getItem(0);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 CurrentLocation = locationAdapter.getItem(i);
+                view.setSelected(true);
 
+                for(int a = 0; a < adapterView.getChildCount(); a++)
+                {
+                    adapterView.getChildAt(a).setBackgroundColor(Color.TRANSPARENT);
+                }
+                view.setBackgroundColor(Color.argb(1.0f,0.5f,0.5f,1.0f));
             }
         });
 

@@ -1,45 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.LocationCheckInFragment">
-
-    <!-- TODO: Update blank fragment layout -->
 
     <Spinner
         android:id="@+id/OGSelectSpinner"
         android:layout_width="123dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="70dp" />
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="246dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/OGSelectSpinner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-70dp"
-        android:text="TextView"
-        android:textSize="17sp"
-        tools:text="Select the place that you are at" />
+        android:layout_marginTop="28dp"
+        android:text="Select the place that you are at"
+        app:layout_constraintHorizontal_bias="0.231"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/OGSelectSpinner" />
 
     <Button
         android:id="@+id/CheckInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="209dp"
-        android:text="Check In" />
+        android:layout_marginBottom="212dp"
+        android:layout_marginEnd="4dp"
+        android:text="Check In"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ListView
         android:id="@+id/LocationListView"
-        android:layout_width="292dp"
-        android:layout_height="459dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_width="0dp"
+        android:layout_height="458dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/CheckInButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

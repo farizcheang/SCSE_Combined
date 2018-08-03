@@ -20,4 +20,8 @@
     <color name="button_blue_disabled">#a7b7fa</color>
     <color name="button_camera_dark">#263238</color>
 
+
+    <drawable name="listview_item_pressed">#ED6154</drawable>
+    <drawable name="listview_item_selected">#ED6154</drawable>
+
 </resources>
