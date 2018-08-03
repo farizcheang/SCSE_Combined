@@ -21,6 +21,10 @@
 
             android:title="Add Score for Prog" />
         <item
+            android:id="@+id/Approve_Score"
+
+            android:title="Approve Score for Chief Prog" />
+        <item
             android:id="@+id/Account"
 
             android:title="Account" />
@@ -40,6 +44,10 @@
             android:id="@+id/LocationCheckIn"
 
             android:title="Location Check In" />
+        <item
+            android:id="@+id/ViewOGLocation"
+
+            android:title="View OG Location" />
         <item
             android:id="@+id/Feedback"
 

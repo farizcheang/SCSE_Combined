@@ -18,6 +18,7 @@ import com.example.tyrone.scse_foc_2018.R;
 import com.example.tyrone.scse_foc_2018.controller.MemberController;
 import com.example.tyrone.scse_foc_2018.controller.NewsController;
 import com.example.tyrone.scse_foc_2018.fragment.AccountFragment;
+import com.example.tyrone.scse_foc_2018.fragment.ApproveScoreFragment;
 import com.example.tyrone.scse_foc_2018.fragment.CreateAccidentReportFragment;
 import com.example.tyrone.scse_foc_2018.fragment.FeedbackFragment;
 import com.example.tyrone.scse_foc_2018.fragment.LocationCheckInFragment;
@@ -26,6 +27,7 @@ import com.example.tyrone.scse_foc_2018.fragment.TrReportFragment;
 import com.example.tyrone.scse_foc_2018.fragment.UpdateNewsFragment;
 import com.example.tyrone.scse_foc_2018.fragment.UpdateScoreFragment;
 import com.example.tyrone.scse_foc_2018.fragment.ViewAccidentReportFragment;
+import com.example.tyrone.scse_foc_2018.fragment.ViewOGLocationFragment;
 import com.example.tyrone.scse_foc_2018.fragment.ViewScoreFragment;
 
 import android.widget.Button;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ViewScoreFragment scoreFragment;
     private UpdateScoreFragment updateScoreFragment;
+    private ApproveScoreFragment approveScoreFragment;
 
     private TrReportFragment trReportFragment;
     private FeedbackFragment feedbackFragment;
@@ -68,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private AccountFragment accountFragment;
     private LocationCheckInFragment locationCheckInFragment;
+    private ViewOGLocationFragment viewOGlocationFragment;
+
     @VisibleForTesting
     public ProgressDialog mProgressDialog;
 
@@ -81,11 +86,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         updateNewsFragment = new UpdateNewsFragment();
         scoreFragment = new ViewScoreFragment();
         updateScoreFragment = new UpdateScoreFragment();
+        approveScoreFragment = new ApproveScoreFragment();
         trReportFragment = new TrReportFragment();
         createAccidentReportFragment = new CreateAccidentReportFragment();
         viewAccidentReportFragment = new ViewAccidentReportFragment();
         accountFragment = new AccountFragment();
         locationCheckInFragment = new LocationCheckInFragment();
+        viewOGlocationFragment = new ViewOGLocationFragment();
         feedbackFragment = new FeedbackFragment();
 
         memberController = new MemberController();
@@ -138,6 +145,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
+                            case "Approve Score for Chief Prog" :
+                                ft.replace(R.id.fl_contents,approveScoreFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
                             case "TR report" :
                                 ft.replace(R.id.fl_contents,trReportFragment);
                                 ft.addToBackStack(null);
@@ -160,6 +172,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 break;
                             case "Location Check In" :
                                 ft.replace(R.id.fl_contents,locationCheckInFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
+                            case "View OG Location" :
+                                ft.replace(R.id.fl_contents,viewOGlocationFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;

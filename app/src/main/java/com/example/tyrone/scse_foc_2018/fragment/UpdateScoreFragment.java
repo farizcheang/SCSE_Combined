@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.tyrone.scse_foc_2018.R;
 import com.example.tyrone.scse_foc_2018.entity.GroupScore;
 import com.example.tyrone.scse_foc_2018.entity.News;
+import com.example.tyrone.scse_foc_2018.entity.ScoreUpdateRequest;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +27,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class UpdateScoreFragment extends Fragment {
 
@@ -38,6 +42,7 @@ public class UpdateScoreFragment extends Fragment {
     Button MinusButton;
     Button UpdateButton;
     TextView Score;
+    TextView DescriptionTextView;
 
     private View.OnClickListener MinusButtonOnClickListener = new View.OnClickListener() {
         @Override
@@ -92,6 +97,7 @@ public class UpdateScoreFragment extends Fragment {
         UpdateButton.setOnClickListener(UpdateButtonOnClickListener);
 
         Score = getActivity().findViewById(R.id.ScoreTextView);
+        DescriptionTextView  = getActivity().findViewById(R.id.descriptionTextView);
 
 
         String[] OG_Groups = getResources().getStringArray(R.array.OGs);
@@ -120,41 +126,49 @@ public class UpdateScoreFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
-        if ( user != null ) {
-            database = FirebaseDatabase.getInstance().getReference("groups");
 
+        //TODO make the requester correctly
+        String requester = "tyrone";
+
+        ScoreUpdateRequest updateReq = new ScoreUpdateRequest(DescriptionTextView.getText().toString(), requester, Score.getText().toString(),GroupSelectSpinner.getSelectedItem().toString());
+
+        if ( user != null ) {
+            database = FirebaseDatabase.getInstance().getReference();
+            database.child("scoreupdaterequest").push().setValue(updateReq);
+        }
+
+        /*if ( user != null ) {
+            database = FirebaseDatabase.getInstance().getReference("groups");
             database.addListenerForSingleValueEvent(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    //if (fragment instanceof NewsFragment)
-                    onGetDataSuccess(dataSnapshot);
+                    for ( DataSnapshot group :  dataSnapshot.getChildren() ) {
+
+                        //if its the group that i want to edit, then do
+                        if(group.getKey().equals(GroupSelectSpinner.getSelectedItem().toString()))
+                        {
+                            GroupScore ascore = group.getValue(GroupScore.class);
+                            String thescore = ascore.getScore();
+                            int AddScore = Integer.parseInt(Score.getText().toString());
+
+                            database.child(group.getKey()).child("score").setValue("" + (Integer.parseInt(thescore) + AddScore));
+                        }
+                    }
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-            });
-        }
+            }
+            );
+        }*/
     }
 
     public void onGetDataSuccess (DataSnapshot data) {
 
-        for ( DataSnapshot group :  data.getChildren() ) {
 
-            //if its the group that i want to edit, then do
-            if(group.getKey().equals(GroupSelectSpinner.getSelectedItem().toString()))
-            {
-                GroupScore ascore = group.getValue(GroupScore.class);
-                String thescore = ascore.getScore();
-                int AddScore = Integer.parseInt(Score.getText().toString());
-
-                database.child(group.getKey()).child("score").setValue("" + (Integer.parseInt(thescore) + AddScore));
-            }
-
-
-        }
 
     }
 }

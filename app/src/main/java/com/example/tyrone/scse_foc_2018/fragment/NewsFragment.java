@@ -79,7 +79,7 @@ public class NewsFragment extends Fragment {
 
         }
 
-        Log.i("onGetDataSuccessChange", String.valueOf(this.listView.getAdapter().getCount()));
+        //Log.i("onGetDataSuccessChange", String.valueOf(this.listView.getAdapter().getCount()));
         newsAdapter.notifyDataSetChanged();
 
 

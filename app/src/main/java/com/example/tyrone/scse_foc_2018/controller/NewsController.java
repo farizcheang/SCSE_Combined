@@ -30,7 +30,7 @@ public class NewsController {
     //  Retrieve News
     public void retrieveNews(final Fragment fragment) {
 
-        Log.d(TAG, "retrieve");
+        //Log.d(TAG, "retrieve");
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();

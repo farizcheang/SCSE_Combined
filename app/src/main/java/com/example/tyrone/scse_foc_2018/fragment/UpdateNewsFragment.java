@@ -71,6 +71,7 @@ public class UpdateNewsFragment extends Fragment {
         String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
 
+        //TODO make the author and time correctly
         News news = new News(TitleTextView.getText().toString(), author, date, "12pm", ContentTextView.getText().toString());
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -80,7 +81,7 @@ public class UpdateNewsFragment extends Fragment {
             database.child("news").push().setValue(news);
         }
         else {
-            Log.d("ASD", "createNews:createRecord:failure");
+            Log.d("ASD", "boardcastmessage:failure");
         }
     }
 
