@@ -52,6 +52,7 @@ public class RegisterActivity extends BaseAuthActivity {
                 createMember(et_name.getText().toString(),
                         et_email.getText().toString(),
                         et_password.getText().toString(),
+                        "",
                         Integer.parseInt(et_mobileNo.getText().toString()));
             }
         });
@@ -66,14 +67,14 @@ public class RegisterActivity extends BaseAuthActivity {
 
     }
 
-    private void createMember(String name, String email, String password, int mobileNo) {
+    private void createMember(String name, String email, String password, String role, int mobileNo) {
         if (!validateRegisterForm()) {
             return;
         }
 
         showProgressDialog();
 
-        final Member member = new Member(name, email, "Comm_Prog", mobileNo, null);
+        final Member member = new Member(name, email, role, mobileNo, null);
         final MemberController memberController = new MemberController();
 
         mAuth = FirebaseAuth.getInstance();
