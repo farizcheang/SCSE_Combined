@@ -43,6 +43,7 @@
 
     <ListView
         android:id="@+id/LocationListView"
+        android:scrollbars= "none"
         android:layout_width="0dp"
         android:layout_height="458dp"
         android:layout_marginEnd="8dp"
