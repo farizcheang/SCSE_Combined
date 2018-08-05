@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.NavigationView;
@@ -39,6 +40,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Spinner;
 
 /**
  * Created by Tyrone on 6/2/2018.
@@ -82,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        memberController = new MemberController();
+        memberController.retrieveMemberRecord();
+
         newsFragment = new NewsFragment();
         updateNewsFragment = new UpdateNewsFragment();
         scoreFragment = new ViewScoreFragment();
@@ -95,11 +100,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewOGlocationFragment = new ViewOGLocationFragment();
         feedbackFragment = new FeedbackFragment();
 
-        memberController = new MemberController();
 
-        memberController.retrieveMemberRecord();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // Actions to do after 1 second
+                initToolBar();
+            }
+        }, 2000);
 
-        initToolBar();
         initDrawer();
 
         //  Check if it is null
@@ -112,9 +121,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    /*@Override
+    public boolean onCreateOptionsMenu( Menu menu ) {
+        getMenuInflater().inflate(R.menu.drawer_view,menu);
+
+        return true;
+    }*/
+
     public void initDrawer() {
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
+        navigationView.getMenu().clear();
+
+        if ( memberController.currentMember.getRole() == "Admin")
+            navigationView.inflateMenu(R.menu.drawer_view);
+        else
+            navigationView.inflateMenu(R.menu.drawer_view_freshmen);
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {

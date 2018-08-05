@@ -36,6 +36,7 @@ public class FeedbackFragment extends Fragment {
         submitButton = (Button)v.findViewById(R.id.submitFeedback);
         focDates = getResources().getStringArray((R.array.foc_dates));
 
+        date_Spinner = (Spinner)v.findViewById(R.id.dateSpinner);
         ArrayAdapter<String> datesAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,focDates);
         datesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         date_Spinner.setAdapter(datesAdapter);

@@ -109,6 +109,7 @@ public class MemberController {
                     //if(fragment instanceof AccountFragment)
                     //    currentMember = ((AccountFragment) fragment).onGetDataSuccess(dataSnapshot);
                     currentMember = dataSnapshot.getValue(Member.class);
+                    Log.i("Role:",currentMember.getRole());
                 }
 
                 @Override
