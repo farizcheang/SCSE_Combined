@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import android.app.Fragment;
 import com.example.tyrone.scse_foc_2018.R;
+import com.example.tyrone.scse_foc_2018.controller.MemberController;
 import com.example.tyrone.scse_foc_2018.entity.News;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,6 +28,7 @@ public class UpdateNewsFragment extends Fragment {
 
     private DatabaseReference database;
 
+    MemberController memberController;
     Button UpdateButton;
     TextView TitleTextView;
     TextView ContentTextView;
@@ -46,6 +48,8 @@ public class UpdateNewsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        memberController = new MemberController();
+        memberController.retrieveMemberRecord();
     }
 
     @Override
@@ -58,7 +62,7 @@ public class UpdateNewsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        UpdateButton = getActivity().findViewById(R.id.UpdateButton);
+        UpdateButton = getActivity().findViewById(R.id.HandOverButton);
         UpdateButton.setOnClickListener(UpdateButtonOnClickListener);
 
         ContentTextView = getActivity().findViewById(R.id.contentTextView);
@@ -67,7 +71,7 @@ public class UpdateNewsFragment extends Fragment {
     public void BroadcastMessage()
     {
 
-        String author = "tyrone";
+        String author = memberController.currentMember.getName();
         String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
 

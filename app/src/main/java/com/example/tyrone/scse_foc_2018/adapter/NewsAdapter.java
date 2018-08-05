@@ -30,6 +30,10 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
     }
     @Override
+    public boolean isEnabled(int position) {
+        return false;
+    }
+    @Override
     public int getCount() {
         Log.i("getCount size", String.valueOf(newsArray.size()));
         return newsArray.size();

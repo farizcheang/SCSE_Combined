@@ -20,7 +20,7 @@
     <TextView
         android:id="@+id/descriptionTextView"
         android:layout_width="238dp"
-        android:layout_height="53dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="Description"
         app:layout_constraintEnd_toEndOf="parent"

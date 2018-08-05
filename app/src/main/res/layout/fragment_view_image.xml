@@ -9,7 +9,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/whitebackground"
         android:layout_width="420dp"
         android:layout_height="612dp"
         android:src="@color/colorCardView" />

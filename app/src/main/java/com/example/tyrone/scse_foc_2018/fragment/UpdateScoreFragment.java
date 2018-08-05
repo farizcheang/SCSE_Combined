@@ -1,49 +1,41 @@
 package com.example.tyrone.scse_foc_2018.fragment;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.tyrone.scse_foc_2018.R;
-import com.example.tyrone.scse_foc_2018.entity.GroupScore;
-import com.example.tyrone.scse_foc_2018.entity.News;
+import com.example.tyrone.scse_foc_2018.controller.MemberController;
 import com.example.tyrone.scse_foc_2018.entity.ScoreUpdateRequest;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+import java.util.HashMap;
 
 public class UpdateScoreFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private DatabaseReference database;
+    private MemberController memberController;
 
-    Spinner GroupSelectSpinner;
     Button PlusButton;
     Button MinusButton;
     Button UpdateButton;
     TextView Score;
     TextView DescriptionTextView;
 
+    ImageView Selector;
     private View.OnClickListener MinusButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -57,6 +49,21 @@ public class UpdateScoreFragment extends Fragment {
         }
     };
 
+    private View.OnClickListener OGImagenOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //adjust the position to "highlight" the current group
+            float adjustX = v.getX() - (Selector.getWidth()/2 - v.getWidth()/2);
+            float adjustY = v.getY() - (Selector.getHeight()/2 - v.getHeight()/2);
+            Selector.setX(adjustX);
+            Selector.setY(adjustY);
+
+            Selector.setVisibility(View.VISIBLE);
+
+            //update the tag with the OG name
+            Selector.setTag(v.getTag());
+        }
+    };
     private View.OnClickListener UpdateButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -71,7 +78,8 @@ public class UpdateScoreFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        memberController = new MemberController();
+        memberController.retrieveMemberRecord();
 
     }
 
@@ -86,25 +94,46 @@ public class UpdateScoreFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        GroupSelectSpinner = getActivity().findViewById(R.id.GroupSelectSpinner);
+
+
+        //temp imageview to set the selector
+        ImageView apusImage = getActivity().findViewById(R.id.apusImageView);
+        getActivity().findViewById(R.id.apusImageView).setOnClickListener(OGImagenOnClickListener);
+        getActivity().findViewById(R.id.apusImageView).setTag("apus");
+
+        getActivity().findViewById(R.id.leoImageView).setOnClickListener(OGImagenOnClickListener);
+        getActivity().findViewById(R.id.leoImageView).setTag("leo");
+
+        getActivity().findViewById(R.id.corvusImageView).setOnClickListener(OGImagenOnClickListener);
+        getActivity().findViewById(R.id.corvusImageView).setTag("corvus");
+
+        getActivity().findViewById(R.id.scorpiusImageView).setOnClickListener(OGImagenOnClickListener);
+        getActivity().findViewById(R.id.scorpiusImageView).setTag("scorpius");
+
+        getActivity().findViewById(R.id.lyraImageView).setOnClickListener(OGImagenOnClickListener);
+        getActivity().findViewById(R.id.lyraImageView).setTag("lyra");
+
+        getActivity().findViewById(R.id.orionImageView).setOnClickListener(OGImagenOnClickListener);
+        getActivity().findViewById(R.id.orionImageView).setTag("orion");
+
+        //init the selector to the first image which is apus
+        Selector = getActivity().findViewById(R.id.Selector);
+        Selector.setVisibility(View.INVISIBLE);
+
+        //update the tag with the OG name
+        Selector.setTag(getActivity().findViewById(R.id.apusImageView).getTag());
+
         PlusButton = getActivity().findViewById(R.id.PlusButton);
         PlusButton.setOnClickListener(PlusButtonOnClickListener);
 
         MinusButton = getActivity().findViewById(R.id.MinusButton);
         MinusButton.setOnClickListener(MinusButtonOnClickListener);
 
-        UpdateButton = getActivity().findViewById(R.id.UpdateButton);
+        UpdateButton = getActivity().findViewById(R.id.HandOverButton);
         UpdateButton.setOnClickListener(UpdateButtonOnClickListener);
 
         Score = getActivity().findViewById(R.id.ScoreTextView);
         DescriptionTextView  = getActivity().findViewById(R.id.descriptionTextView);
-
-
-        String[] OG_Groups = getResources().getStringArray(R.array.OGs);
-        ArrayAdapter<String> GroupAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,OG_Groups);
-        GroupAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        GroupSelectSpinner.setAdapter(GroupAdapter);
 
     }
 
@@ -128,9 +157,10 @@ public class UpdateScoreFragment extends Fragment {
 
 
         //TODO make the requester correctly
-        String requester = "tyrone";
+        String requester = memberController.currentMember.getName();
 
-        ScoreUpdateRequest updateReq = new ScoreUpdateRequest(DescriptionTextView.getText().toString(), requester, Score.getText().toString(),GroupSelectSpinner.getSelectedItem().toString());
+        String group = Selector.getTag().toString();
+        ScoreUpdateRequest updateReq = new ScoreUpdateRequest(DescriptionTextView.getText().toString(), requester, Score.getText().toString(),group);
 
         if ( user != null ) {
             database = FirebaseDatabase.getInstance().getReference();
@@ -166,9 +196,6 @@ public class UpdateScoreFragment extends Fragment {
         }*/
     }
 
-    public void onGetDataSuccess (DataSnapshot data) {
 
-
-
-    }
 }
+
