@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,21 +16,18 @@ import android.widget.ImageView;
 
 import com.example.tyrone.scse_foc_2018.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ViewImageFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ViewImageFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ViewImageFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
 
-    // TODO: Rename and change types of parameters
     private String image;
+    private View.OnClickListener EmptyOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+        //do nothing
+            ViewImageFragment.super.getActivity().onBackPressed();
+        }
+    };
+
 
     public ViewImageFragment() {
         // Required empty public constructor
@@ -60,6 +58,10 @@ public class ViewImageFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        Log.i("as", "creating another new view for a new image");
+
+        getActivity().findViewById(R.id.whitebackground).setOnClickListener(EmptyOnClickListener);
 
         byte[] PicByteArr = Base64.decode(image, Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(PicByteArr, 0, PicByteArr.length);
