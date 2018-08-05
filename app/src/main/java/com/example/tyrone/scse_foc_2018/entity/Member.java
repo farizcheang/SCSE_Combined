@@ -10,7 +10,9 @@ public class Member {
     private String email, group, name, role;
     private int mobileNo;
 
-    public Member() {}
+    public Member() {
+        role = "Freshmen";
+    }
 
     public Member ( String name, String email, String role, int mobileNo, String group ) {
         this.name = name;

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <group android:checkableBehavior="single"
+        android:layout_width="wrap_content">
+        <item
+            android:id="@+id/Updates"
+
+            android:title="Updates" />
+
+        <item
+            android:id="@+id/View_Score"
+
+            android:title="Score" />
+        <item
+            android:id="@+id/Add_Score"
+
+            android:title="Add Score for Prog" />
+
+        <item
+            android:id="@+id/Account"
+
+            android:title="Account" />
+        <item
+            android:id="@+id/TrReport"
+
+            android:title="TR report" />
+        <item
+            android:id="@+id/AccidentReport"
+
+            android:title="Accident report" />
+
+
+        <item
+            android:id="@+id/Logout"
+
+            android:title="Logout" />
+    </group>
+</menu>

@@ -22,6 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.example.tyrone.scse_foc_2018.entity.Member;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
+
 
 public class MemberController {
 
@@ -29,7 +32,7 @@ public class MemberController {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private DatabaseReference database;
-    public Member currentMember;
+    public Member currentMember = new Member();
 
     private boolean result;
 
@@ -57,6 +60,7 @@ public class MemberController {
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
+
 
         if (user != null) {
             database = FirebaseDatabase.getInstance().getReference();
@@ -97,10 +101,13 @@ public class MemberController {
         return result;
     }
 
-    public void retrieveMemberRecord() {
+    public void retrieveMemberRecord()  {
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
+
+        //final Semaphore done = new Semaphore(0);
+
         if (user != null) {
             database = FirebaseDatabase.getInstance().getReference("member");
             database.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -109,16 +116,18 @@ public class MemberController {
                     //if(fragment instanceof AccountFragment)
                     //    currentMember = ((AccountFragment) fragment).onGetDataSuccess(dataSnapshot);
                     currentMember = dataSnapshot.getValue(Member.class);
-                    Log.i("Role:",currentMember.getRole());
+                    //done.release();
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+
                     //if(fragment instanceof AccountFragment)
                       //  ((AccountFragment) fragment).onGetDataFailed(databaseError);
 
                 }
             });
+            //done.acquire();
         }
     }
 

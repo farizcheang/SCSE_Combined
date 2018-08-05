@@ -40,7 +40,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by Tyrone on 6/2/2018.
@@ -84,9 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        memberController = new MemberController();
-        memberController.retrieveMemberRecord();
-
         newsFragment = new NewsFragment();
         updateNewsFragment = new UpdateNewsFragment();
         scoreFragment = new ViewScoreFragment();
@@ -100,16 +101,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewOGlocationFragment = new ViewOGLocationFragment();
         feedbackFragment = new FeedbackFragment();
 
+        memberController = new MemberController();
+        memberController.retrieveMemberRecord();
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Connecting");
+        progress.setMessage("Please wait while we connect retrieve your data...");
+        progress.show();
+
+        Runnable progressRunnable = new Runnable() {
+
+            @Override
             public void run() {
-                // Actions to do after 1 second
-                initToolBar();
+                progress.cancel();
+                Log.i("Check Role 2", memberController.currentMember.getRole());
+                initDrawer();
             }
-        }, 2000);
+        };
 
-        initDrawer();
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 3000);
+
+
+        Log.i("Check Role", memberController.currentMember.getRole());
+
+        initToolBar();
+
 
         //  Check if it is null
         if ( savedInstanceState == null ) {
@@ -133,10 +150,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
         navigationView.getMenu().clear();
 
-        if ( memberController.currentMember.getRole() == "Admin")
-            navigationView.inflateMenu(R.menu.drawer_view);
-        else
+        //Log.i("Check Role 4", memberController.currentMember.getRole());
+
+        if ( memberController.currentMember.getRole().equals("Freshmen"))
             navigationView.inflateMenu(R.menu.drawer_view_freshmen);
+        else if ( memberController.currentMember.getRole().equals("Comm_Prog"))
+            navigationView.inflateMenu(R.menu.drawer_view_prog);
+        else if ( memberController.currentMember.getRole().equals("Admin"))
+            navigationView.inflateMenu(R.menu.drawer_view);
+
+        //Log.i("Check Role 5", memberController.currentMember.getRole());
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
