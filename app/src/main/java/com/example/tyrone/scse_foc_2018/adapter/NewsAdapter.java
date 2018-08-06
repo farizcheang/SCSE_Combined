@@ -60,7 +60,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        Log.i("getView", "test");
         LayoutInflater inflater = context.getLayoutInflater();
 
         News news = getItem(position);

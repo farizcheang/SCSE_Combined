@@ -29,19 +29,16 @@ public class AccidentReportAdapter extends ArrayAdapter<AccidentReport> {
     }
     @Override
     public int getCount() {
-        Log.i("getCount size", String.valueOf(reportArray.size()));
         return reportArray.size();
     }
 
     @Override
     public AccidentReport getItem(int position) {
-        Log.i("getItem position", String.valueOf(position));
         return reportArray.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        Log.i("getItem id", String.valueOf(position));
         return position;
     }
 

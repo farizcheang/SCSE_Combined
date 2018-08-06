@@ -26,9 +26,11 @@ import com.example.tyrone.scse_foc_2018.fragment.LocationCheckInFragment;
 import com.example.tyrone.scse_foc_2018.fragment.NewsFragment;
 import com.example.tyrone.scse_foc_2018.fragment.TrReportFragment;
 import com.example.tyrone.scse_foc_2018.fragment.UpdateNewsFragment;
+import com.example.tyrone.scse_foc_2018.fragment.UpdateOGNewsFragment;
 import com.example.tyrone.scse_foc_2018.fragment.UpdateScoreFragment;
 import com.example.tyrone.scse_foc_2018.fragment.ViewAccidentReportFragment;
 import com.example.tyrone.scse_foc_2018.fragment.ViewOGLocationFragment;
+import com.example.tyrone.scse_foc_2018.fragment.ViewOGNewsFragment;
 import com.example.tyrone.scse_foc_2018.fragment.ViewScoreFragment;
 
 import android.widget.Button;
@@ -64,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Fragment currentFragment;
     private NewsFragment newsFragment;
     private UpdateNewsFragment updateNewsFragment;
+    private ViewOGNewsFragment viewOGNewsFragment;
+    private UpdateOGNewsFragment updateOGNewsFragment;
 
     private ViewScoreFragment scoreFragment;
     private UpdateScoreFragment updateScoreFragment;
@@ -88,8 +92,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle("AOAOA");
         newsFragment = new NewsFragment();
         updateNewsFragment = new UpdateNewsFragment();
+        viewOGNewsFragment = new ViewOGNewsFragment();
+        updateOGNewsFragment = new UpdateOGNewsFragment();
+
         scoreFragment = new ViewScoreFragment();
         updateScoreFragment = new UpdateScoreFragment();
         approveScoreFragment = new ApproveScoreFragment();
@@ -152,12 +160,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Log.i("Check Role 4", memberController.currentMember.getRole());
 
-        if ( memberController.currentMember.getRole().equals("Freshmen"))
+        if ( memberController.currentMember.getRole().equals("Freshman"))
             navigationView.inflateMenu(R.menu.drawer_view_freshmen);
         else if ( memberController.currentMember.getRole().equals("Comm_Prog"))
             navigationView.inflateMenu(R.menu.drawer_view_prog);
         else if ( memberController.currentMember.getRole().equals("Admin"))
             navigationView.inflateMenu(R.menu.drawer_view);
+        else if ( memberController.currentMember.getRole().equals("Comm_GL"))
+            navigationView.inflateMenu(R.menu.drawer_view_gl);
 
         //Log.i("Check Role 5", memberController.currentMember.getRole());
 
@@ -171,61 +181,98 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String SelectItem = item.toString();
                         switch (SelectItem) {
                             case "Updates" :
+                                toolbar.setTitle("View News Update");
+
                                 ft.replace(R.id.fl_contents,newsFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
                             case "Add News" :
+                                toolbar.setTitle("Add News Update");
                                 ft.replace(R.id.fl_contents,updateNewsFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
+                            case "View Group Updates" :
+                                toolbar.setTitle("Group Updates");
+
+                                ft.replace(R.id.fl_contents,viewOGNewsFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
+                            case "Group Updates" :
+                                toolbar.setTitle("Add Group Updates");
+
+                                ft.replace(R.id.fl_contents,updateOGNewsFragment);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
                             case "Score" :
+                                toolbar.setTitle("Score");
+
                                 ft.replace(R.id.fl_contents,scoreFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
                             case "Add Score for Prog" :
+                                toolbar.setTitle("Add Score");
+
                                 ft.replace(R.id.fl_contents,updateScoreFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
                             case "Approve Score for Chief Prog" :
+                                toolbar.setTitle("Approve Score");
+
                                 ft.replace(R.id.fl_contents,approveScoreFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
                             case "TR report" :
+                                toolbar.setTitle("Hand/Take Over");
+
                                 ft.replace(R.id.fl_contents,trReportFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
                             case "Accident report" :
+                                toolbar.setTitle("Submit Accident Report");
+
                                 ft.replace(R.id.fl_contents,createAccidentReportFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
                             case "View Accident report" :
+                                toolbar.setTitle("View Accident Report");
+
                                 ft.replace(R.id.fl_contents,viewAccidentReportFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
                             case "Account" :
+                                toolbar.setTitle("Account");
+
                                 ft.replace(R.id.fl_contents,accountFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
                             case "Location Check In" :
+                                toolbar.setTitle("Location Check in");
+
                                 ft.replace(R.id.fl_contents,locationCheckInFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
                             case "View OG Location" :
+                                toolbar.setTitle("View OG Locations");
+
                                 ft.replace(R.id.fl_contents,viewOGlocationFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
                             case "Feedback" :
+                                toolbar.setTitle("Feedback");
+
                                 ft.replace(R.id.fl_contents, feedbackFragment);
                                 ft.addToBackStack(null);
                                 ft.commit();

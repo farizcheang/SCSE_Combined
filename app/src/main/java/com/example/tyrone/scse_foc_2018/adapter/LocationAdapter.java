@@ -31,19 +31,16 @@ public class LocationAdapter  extends ArrayAdapter<String> {
     }
     @Override
     public int getCount() {
-        Log.i("getCount size", String.valueOf(LocationArray.size()));
         return LocationArray.size();
     }
 
     @Override
     public String getItem(int position) {
-        Log.i("getItem position", String.valueOf(position));
         return LocationArray.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        Log.i("getItem id", String.valueOf(position));
         return position;
     }
 

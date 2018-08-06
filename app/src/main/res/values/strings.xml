@@ -149,6 +149,20 @@
         <item>Panic Attack</item>
         <item>Others</item>
     </string-array>
+    <string-array name="accidentTypesSelection">
+        <item>All</item>
+        <item>Sprain</item>
+        <item>Fracture</item>
+        <item>Cut</item>
+        <item>Bruise</item>
+        <item>Period</item>
+        <item>Food poisoning</item>
+        <item>Insect bite</item>
+        <item>Laceration</item>
+        <item>Heat exhaustion</item>
+        <item>Panic Attack</item>
+        <item>Others</item>
+    </string-array>
 
     <string-array name="locations">
         <item>TR+15</item>

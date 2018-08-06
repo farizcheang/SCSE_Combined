@@ -8,27 +8,34 @@
             android:id="@+id/Updates"
 
             android:title="Updates" />
-
-        <item
-            android:id="@+id/View_Group_Updates"
-
-            android:title="View Group Updates" />
-
         <item
             android:id="@+id/View_Score"
 
             android:title="Score" />
+        <item
+            android:id="@+id/Group_Updates"
 
+            android:title="Group Updates" />
+        <item
+            android:id="@+id/View_Group_Updates"
+
+            android:title="View Group Updates" />
         <item
             android:id="@+id/Account"
 
             android:title="Account" />
-
-
         <item
-            android:id="@+id/Feedback"
+            android:id="@+id/TrReport"
 
-            android:title="Feedback" />
+            android:title="TR report" />
+        <item
+            android:id="@+id/AccidentReport"
+
+            android:title="Accident report" />
+        <item
+            android:id="@+id/LocationCheckIn"
+
+            android:title="Location Check In" />
         <item
             android:id="@+id/Logout"
 

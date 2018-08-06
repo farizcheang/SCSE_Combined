@@ -13,6 +13,14 @@
 
             android:title="Add News" />
         <item
+            android:id="@+id/Group_Updates"
+
+            android:title="Group Updates" />
+        <item
+            android:id="@+id/View_Group_Updates"
+
+            android:title="View Group Updates" />
+        <item
             android:id="@+id/View_Score"
 
             android:title="Score" />
