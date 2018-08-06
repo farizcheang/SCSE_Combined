@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.example.tyrone.scse_foc_2018.R;
 import com.example.tyrone.scse_foc_2018.adapter.AccidentReportAdapter;
@@ -36,6 +38,8 @@ public class ViewAccidentReportFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference database;
 
+    Spinner accidentListSpinner;
+
     ListView listView;
     private ArrayList<AccidentReport> reportArrayList = new ArrayList<AccidentReport>();
 
@@ -47,16 +51,27 @@ public class ViewAccidentReportFragment extends Fragment {
         public void run() {
             /* do what you need to do */
             RetrieveAccidentReports();
+            accidentReportAdapter.notifyDataSetChanged();
             /* and here comes the "trick" */
-            handler.postDelayed(this, 1000);
+            //handler.postDelayed(this, 1000);
         }
+    };
+    AdapterView.OnItemSelectedListener AccidentListSpinnerListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+            Organise(accidentListSpinner.getSelectedItem().toString());
+
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+        }
+
     };
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         handler.postDelayed(runnable, 1000);
-
     }
 
     @Override
@@ -64,9 +79,17 @@ public class ViewAccidentReportFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_view_accident_report,container,false);
+
+        accidentListSpinner = view.findViewById(R.id.accidentListSpinner);
+        ArrayAdapter<String> accidentAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,getResources().getStringArray(R.array.accidentTypesSelection));
+        accidentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        accidentListSpinner.setAdapter(accidentAdapter);
+        accidentListSpinner.setOnItemSelectedListener(AccidentListSpinnerListener);
+
         listView = (ListView) view.findViewById(R.id.frag_list);
 
         accidentReportAdapter = new AccidentReportAdapter(getActivity(),reportArrayList);
+
         //Log.i("onGetDataSuccessNull", String.valueOf(this.listView.getAdapter().getCount()));
 
         listView.setAdapter(accidentReportAdapter);
@@ -86,6 +109,8 @@ public class ViewAccidentReportFragment extends Fragment {
                 }
             }
         });
+
+
         return view;
     }
 
@@ -119,10 +144,32 @@ public class ViewAccidentReportFragment extends Fragment {
             reportArrayList.add(0, news.getValue(AccidentReport.class));
 
         }
+    }
+    private void Organise(String selection)
+    {
+        Log.i("a",selection);
+        if(selection.equals("All"))
+        {
+            RetrieveAccidentReports();
+            accidentReportAdapter.notifyDataSetChanged();
 
-        Log.i("onGetDataSuccessChange", String.valueOf(this.listView.getAdapter().getCount()));
-        accidentReportAdapter.notifyDataSetChanged();
+        }
+        else
+        {
+            //reportArrayList.clear();
+            RetrieveAccidentReports();
 
+            for(int i = 0; i < reportArrayList.size(); i ++)
+            {
+                //if the accident isnt the one in the selection
+                if(!reportArrayList.get(i).getAccident().equals(selection))
+                {
+                    reportArrayList.remove(i);
+                    i--;
+                }
 
+            }
+            accidentReportAdapter.notifyDataSetChanged();
+        }
     }
 }
