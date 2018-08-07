@@ -42,6 +42,13 @@ public class ViewOGLocationFragment extends Fragment {
     TextView OrionTimeTextView;
     TextView ScorpiusTimeTextView;
 
+    TextView ApusDateTextView;
+    TextView CorvusDateTextView;
+    TextView LeoDateTextView;
+    TextView LyraDateTextView;
+    TextView OrionDateTextView;
+    TextView ScorpiusDateTextView;
+
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
         @Override
@@ -68,7 +75,6 @@ public class ViewOGLocationFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.i("ASD", "COMING INTO ONVIEWCREATED IN VIEWOGLOCATIONFRAGMENT.JAVA");
         ApusLocationTextView = getActivity().findViewById(R.id.apusLocationTextView);
         CorvusLocationTextView = getActivity().findViewById(R.id.corvusLocationTextView);
         LeoLocationTextView = getActivity().findViewById(R.id.leoLocationTextView);
@@ -83,11 +89,14 @@ public class ViewOGLocationFragment extends Fragment {
         OrionTimeTextView = getActivity().findViewById(R.id.orionTimeTextView);
         ScorpiusTimeTextView = getActivity().findViewById(R.id.scorpiusTimeTextView);
 
-        updateInfo();
-        Log.i("ASD", "GOING AWAU FRO<M ONVIEWCREATED IN VIEWOGLOCATIONFRAGMENT.JAVA");
+        ApusDateTextView = getActivity().findViewById(R.id.apusDateTextView);
+        CorvusDateTextView = getActivity().findViewById(R.id.corvusDateTextView);
+        LeoDateTextView = getActivity().findViewById(R.id.leoDateTextView);
+        LyraDateTextView = getActivity().findViewById(R.id.lyraDateTextView);
+        OrionDateTextView = getActivity().findViewById(R.id.orionDateTextView);
+        ScorpiusDateTextView = getActivity().findViewById(R.id.scorpiusDateTextView);
 
-        int c = 1;
-        c =+ 2;
+        updateInfo();
 
     }
     private void updateInfo()
@@ -112,26 +121,32 @@ public class ViewOGLocationFragment extends Fragment {
                             case "apus":
                                 ApusLocationTextView.setText(location.getLocation());
                                 ApusTimeTextView.setText(location.getTime());
+                                ApusDateTextView.setText(location.getDate());
                                 break;
                             case "corvus":
                                 CorvusLocationTextView.setText(location.getLocation());
                                 CorvusTimeTextView.setText(location.getTime());
+                                CorvusDateTextView.setText(location.getDate());
                                 break;
                             case "leo":
                                 LeoLocationTextView.setText(location.getLocation());
                                 LeoTimeTextView.setText(location.getTime());
+                                LeoDateTextView.setText(location.getDate());
                                 break;
                             case "lyra":
                                 LyraLocationTextView.setText(location.getLocation());
                                 LyraTimeTextView.setText(location.getTime());
+                                LyraDateTextView.setText(location.getDate());
                                 break;
                             case "orion":
                                 OrionLocationTextView.setText(location.getLocation());
                                 OrionTimeTextView.setText(location.getTime());
+                                OrionDateTextView.setText(location.getDate());
                                 break;
                             case "scorpius":
                                 ScorpiusLocationTextView.setText(location.getLocation());
                                 ScorpiusTimeTextView.setText(location.getTime());
+                                ScorpiusDateTextView.setText(location.getDate());
                                 break;
 
                         }

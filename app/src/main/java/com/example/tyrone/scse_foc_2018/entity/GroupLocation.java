@@ -1,17 +1,19 @@
 package com.example.tyrone.scse_foc_2018.entity;
 
 public class GroupLocation extends Object {
-    private String location, time;
+    private String location, time, date;
 
     public GroupLocation() {
         location="testLocation";
         time="testTime";
+        date = "testDate";
     }
 
-    public GroupLocation(String inLocation, String inTime, String inAccident, String inDate, String inImage)
+    public GroupLocation(String inLocation, String inTime, String inDate)
     {
         location = inLocation;
         time = inTime;
+        date = inDate;
     }
 
     //  Get Values
@@ -23,4 +25,5 @@ public class GroupLocation extends Object {
         return time;
     }
 
+    public String getDate() {return date;}
 }
