@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
-                            case "TR report" :
+                            case "TR Hand/Take Over" :
                                 toolbar.setTitle("Hand/Take Over");
 
                                 ft.replace(R.id.fl_contents,trReportFragment);
