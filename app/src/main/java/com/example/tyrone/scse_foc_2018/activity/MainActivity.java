@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setTitle("Connecting");
-        progress.setMessage("Please wait while we connect retrieve your data...");
+        progress.setMessage("Please wait while we retrieve your data...");
         progress.show();
 
         Runnable progressRunnable = new Runnable() {
