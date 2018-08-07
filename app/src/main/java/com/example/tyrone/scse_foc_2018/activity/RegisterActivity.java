@@ -52,7 +52,7 @@ public class RegisterActivity extends BaseAuthActivity {
                 createMember(et_name.getText().toString(),
                         et_email.getText().toString(),
                         et_password.getText().toString(),
-                        "",
+                        "Freshmen",
                         Integer.parseInt(et_mobileNo.getText().toString()));
             }
         });
@@ -110,7 +110,7 @@ public class RegisterActivity extends BaseAuthActivity {
                             Log.d((getString(R.string.REGISTERED_TAG)), "login:success");
                             if (mAuth.getCurrentUser() != null) {
                                 hideProgressDialog();
-                                Intent intent = new Intent(RegisterActivity.this, NewsActivity.class);
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
