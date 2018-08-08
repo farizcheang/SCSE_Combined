@@ -32,6 +32,11 @@
             android:title="Accident report" />
 
         <item
+            android:id="@+id/Feedback"
+
+            android:title="Feedback" />
+
+        <item
             android:id="@+id/Logout"
 
             android:title="Logout" />

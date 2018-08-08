@@ -160,16 +160,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Log.i("Check Role 4", memberController.currentMember.getRole());
 
-        if ( memberController.currentMember.getRole().equals("Freshman"))
-            navigationView.inflateMenu(R.menu.drawer_view_freshmen);
-        else if ( memberController.currentMember.getRole().equals("Comm_Prog"))
+        if ( memberController.currentMember.getRole().equals("Comm_Prog"))
             navigationView.inflateMenu(R.menu.drawer_view_prog);
         else if ( memberController.currentMember.getRole().equals("Admin"))
             navigationView.inflateMenu(R.menu.drawer_view);
         else if ( memberController.currentMember.getRole().equals("Comm_GL"))
             navigationView.inflateMenu(R.menu.drawer_view_gl);
+        else
+            navigationView.inflateMenu(R.menu.drawer_view_freshmen);
 
-        //Log.i("Check Role 5", memberController.currentMember.getRole());
+            //Log.i("Check Role 5", memberController.currentMember.getRole());
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {

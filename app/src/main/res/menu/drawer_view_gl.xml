@@ -36,6 +36,11 @@
             android:id="@+id/LocationCheckIn"
 
             android:title="Location Check In" />
+
+        <item
+            android:id="@+id/Feedback"
+
+            android:title="Feedback" />
         <item
             android:id="@+id/Logout"
 
