@@ -1,14 +1,19 @@
 package com.example.tyrone.scse_foc_2018.fragment;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +40,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,8 +57,8 @@ public class TrReportFragment extends Fragment {
     private DatabaseReference database;
     private MemberController memberController;
 
-    static final int REQUEST_BEFORE_IMAGE = 0;
-    static final int REQUEST_AFTER_IMAGE = 1;
+
+    private String mCurrentPhotoPath = "";
 
     static final int STATUS_EMPTY = 0;
     static final int STATUS_HALFWAY = 1;
@@ -75,9 +84,6 @@ public class TrReportFragment extends Fragment {
 
     String CurrentRoom;
     String CurrentTiming;
-
-    ImageView BeforeImage;
-    ImageView AfterImage;
 
     int NumImages = 7;
     ImageView Images[];
@@ -114,20 +120,7 @@ public class TrReportFragment extends Fragment {
             }
         }
     };
-    private View.OnClickListener AfterImageOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //if the encoded image is NOT = "", means got image, THEN do this view image Fragment
-            if(!AfterImageEncoded.equals("")) {
 
-                ViewImageFragment viewImageFragment = ViewImageFragment.newInstance(AfterImageEncoded);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.add(R.id.fl_contents, viewImageFragment);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        }
-    };
     private View.OnClickListener TakeOverButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -233,12 +226,6 @@ public class TrReportFragment extends Fragment {
         HandOverName = getActivity().findViewById(R.id.handOverNameTextView);
         HandOverTime = getActivity().findViewById(R.id.handOverTimeTextView);
 
-        BeforeImage = getActivity().findViewById(R.id.BeforeImage);
-        BeforeImage.setOnClickListener(BeforeImageOnClickListener);
-
-        AfterImage = getActivity().findViewById(R.id.AfterImage);
-        AfterImage.setOnClickListener(AfterImageOnClickListener);
-
         TakeOverButton = getActivity().findViewById(R.id.TakeOverButton);
         TakeOverButton.setEnabled(false);
         TakeOverButton.setOnClickListener(TakeOverButtonOnClickListener);
@@ -340,11 +327,6 @@ public class TrReportFragment extends Fragment {
             for(int i = 0; i < NumImages*2; i++)
                 Images[i].setImageResource(R.mipmap.ic_launcher_round);
 
-            BeforeImage.setImageResource(R.mipmap.ic_launcher_round);
-            AfterImage.setImageResource(R.mipmap.ic_launcher_round);
-
-            BeforeImageEncoded = "";
-            AfterImageEncoded = "";
         }
         else if (CurrentTRStatus == STATUS_HALFWAY)
         {
@@ -421,11 +403,53 @@ public class TrReportFragment extends Fragment {
 
     }
 
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String imageFileName = "POSTPHOTO";
+
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = new File(storageDir, "/" + imageFileName + ".jpg");
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
     public void dispatchTakePictureIntent(int imageRequestCode) {
+       /* Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //File f = new File(Environment.getExternalStorageDirectory(), "POST_IMAGE.jpg");
+        File f = createImageFile();
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+        //imageToUploadUri = Uri.fromFile(f);
+        String auth = "com.example.tyrone.scse_foc_2018";
+        imageToUploadUri = FileProvider.getUriForFile(getActivity(), auth, f);
+
+
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+            startActivityForResult(takePictureIntent, imageRequestCode);
+        }*/
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-           startActivityForResult(takePictureIntent, imageRequestCode);
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getActivity(),
+                        "com.example.tyrone.scse_foc_2018",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, imageRequestCode);
+            }
         }
 
     }
@@ -435,38 +459,31 @@ public class TrReportFragment extends Fragment {
         if (resultCode == RESULT_OK) {
 
             //load the image from the camera
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            //Bundle extras = data.getExtras();
+            //Bitmap imageBitmap = (Bitmap) extras.get("data");
 
-            Images[requestCode].setImageBitmap(imageBitmap);
+            galleryAddPic();
+            setPic(Images[requestCode]);
 
-            if(CurrentTRStatus == STATUS_EMPTY)
+            if (CurrentTRStatus == STATUS_EMPTY)
                 checkIfReadyForTakeOverSubmit();
-            else if(CurrentTRStatus == STATUS_HALFWAY)
+            else if (CurrentTRStatus == STATUS_HALFWAY)
                 checkIfReadyForHandOverSubmit();
-            /*
-            //convert it to a byte array followed by String to store in DB
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] picByteArr = baos.toByteArray();
-            final String encodedImage = Base64.encodeToString(picByteArr, Base64.DEFAULT);
+            /*if(imageToUploadUri != null) {
+                Uri selectedImage = imageToUploadUri;
+                getActivity().getContentResolver().notifyChange(selectedImage, null);
+                Bitmap reducedSizeBitmap = getBitmap(imageToUploadUri.getPath());
 
-            uploadFile(encodedImage, requestCode);
+                //imageview.setImageBitmap(reducedSizeBitmap);
+                if (reducedSizeBitmap != null)
+                    Images[requestCode].setImageBitmap(reducedSizeBitmap);
+                //Images[requestCode].setImageBitmap(imageBitmap);
 
-            if(requestCode == REQUEST_BEFORE_IMAGE) {
-                SetReportStatus(STATUS_HALFWAY);
-                BeforeImage.setImageBitmap(imageBitmap);
-
-            }
-            else if(requestCode == REQUEST_AFTER_IMAGE) {
-                SetReportStatus(STATUS_FINISH);
-                AfterImage.setImageBitmap(imageBitmap);
-
-            }
-            else
-                Log.i("huge error", "image wasnt set properly");*/
-            //update the page and picture accordingly
-            //checkForAvailability();
+                if (CurrentTRStatus == STATUS_EMPTY)
+                    checkIfReadyForTakeOverSubmit();
+                else if (CurrentTRStatus == STATUS_HALFWAY)
+                    checkIfReadyForHandOverSubmit();
+            }*/
 
         }
     }
@@ -595,5 +612,43 @@ public class TrReportFragment extends Fragment {
         String sTime = localDateFormat.format(currentDate);
 
         FirebaseDatabase.getInstance().getReference("tutorialreport").child(date).child(CurrentRoom).child(CurrentTiming).child(purpose).setValue(date + " " + sTime);
+    }
+
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        getActivity().sendBroadcast(mediaScanIntent);
+    }
+    public void setPic(ImageView mImageView) {
+
+        //ImageView mImageView = (ImageView) findViewById(R.id.PreviewImage2);
+        // Get the dimensions of the View
+        int targetW = mImageView.getWidth();
+        int targetH = mImageView.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        String PhotoPath = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/" + "POSTPHOTO.jpg";
+
+
+
+        Bitmap bitmap = BitmapFactory.decodeFile(PhotoPath, bmOptions);
+        mImageView.setImageBitmap(bitmap);
     }
 }

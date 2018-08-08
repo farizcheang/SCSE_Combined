@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setTitle("Connecting");
-        progress.setMessage("Please wait while we retrieve your data...");
+        progress.setMessage("Retrieving data...");
         progress.show();
 
         Runnable progressRunnable = new Runnable() {
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 ft.addToBackStack(null);
                                 ft.commit();
                                 break;
-                            case "TR report" :
+                            case "TR Hand/Take Over" :
                                 toolbar.setTitle("Hand/Take Over");
 
                                 ft.replace(R.id.fl_contents,trReportFragment);

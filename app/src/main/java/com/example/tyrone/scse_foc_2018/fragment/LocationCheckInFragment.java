@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +18,27 @@ import android.widget.Spinner;
 
 import com.example.tyrone.scse_foc_2018.R;
 import com.example.tyrone.scse_foc_2018.adapter.LocationAdapter;
+import com.example.tyrone.scse_foc_2018.entity.GroupLocation;
 import com.google.android.gms.common.util.Strings;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 
 public class LocationCheckInFragment extends Fragment {
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference database;
 
     //variables for the spinner for OG(temp)
     Spinner OGSelectSpinner;
@@ -82,7 +94,6 @@ public class LocationCheckInFragment extends Fragment {
 
         locationAdapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item,getResources().getStringArray((R.array.locations)));
 
-        //items = getResources().getStringArray((R.array.locations));
 
         listView.setAdapter(locationAdapter);
         CurrentLocation = locationAdapter.getItem(0);
@@ -97,13 +108,16 @@ public class LocationCheckInFragment extends Fragment {
                 {
                     adapterView.getChildAt(a).setBackgroundColor(Color.TRANSPARENT);
                 }
-                view.setBackgroundColor(Color.argb(1.0f,0.5f,0.5f,1.0f));
+                //view.setBackgroundColor(Color.argb(1.0f,0.5f,0.5f,1.0f));
             }
         });
 
     }
     public void CheckIn()
     {
+        //store the current location in the db before replacing it
+        StoreCurrentLocation();
+
         String OG = OGSelectSpinner.getSelectedItem().toString();
         //String Location = "SCSE";
         Date currentDate = Calendar.getInstance().getTime();
@@ -111,8 +125,42 @@ public class LocationCheckInFragment extends Fragment {
         SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
         String sTime = localDateFormat.format(currentDate);
 
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
         FirebaseDatabase.getInstance().getReference("oglocation").child(OG).child("location").setValue(CurrentLocation);
         FirebaseDatabase.getInstance().getReference("oglocation").child(OG).child("time").setValue(sTime);
+        FirebaseDatabase.getInstance().getReference("oglocation").child(OG).child("date").setValue(date);
 
+    }
+    private void StoreCurrentLocation()
+    {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        String OG = OGSelectSpinner.getSelectedItem().toString();
+
+        if ( user != null ) {
+            database = FirebaseDatabase.getInstance().getReference("oglocation");
+            database.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot loc : dataSnapshot.getChildren()) {
+
+                        if(loc.getKey().equals(OGSelectSpinner.getSelectedItem().toString())) {
+                            GroupLocation location = loc.getValue(GroupLocation.class);
+                            database = FirebaseDatabase.getInstance().getReference();
+                            database.child("oglocationrecord").child(OGSelectSpinner.getSelectedItem().toString()).push().setValue(location);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+
+            });
+        }
     }
 }

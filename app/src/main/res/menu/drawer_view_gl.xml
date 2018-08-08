@@ -27,7 +27,7 @@
         <item
             android:id="@+id/TrReport"
 
-            android:title="TR report" />
+            android:title="TR Hand/Take Over" />
         <item
             android:id="@+id/AccidentReport"
 
